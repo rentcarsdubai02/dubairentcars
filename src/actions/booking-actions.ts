@@ -2,7 +2,7 @@
 
 import connectToDatabase from "@/lib/mongodb"
 import Booking from "@/models/Booking"
-import Vehicle from "@/models/Vehicle"
+import VehicleV2 from "@/models/Vehicle"
 import User from "@/models/User"
 import { revalidatePath } from "next/cache"
 import { getServerSession } from 'next-auth'
@@ -61,14 +61,14 @@ export async function getAllBookings() {
   await connectToDatabase()
 
   // Force model registration before any query (prevents Turbopack tree-shaking)
-  const _v = Vehicle
+  const _v = VehicleV2
   const _u = User
 
   const bookings = await Booking.find({}).sort({ createdAt: -1 }).lean()
 
   // Manual population to avoid schema registry issues
   const enriched = await Promise.all(bookings.map(async (b: any) => {
-    const vehicle = b.vehicleId ? await Vehicle.findById(b.vehicleId).select('brand name images').lean() : null
+    const vehicle = b.vehicleId ? await VehicleV2.findById(b.vehicleId).select('brand name images').lean() : null
     const user    = b.userId   ? await User.findById(b.userId).select('firstName lastName email').lean() : null
     return { ...b, vehicleId: vehicle, userId: user }
   }))

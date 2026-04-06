@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Plus, ChevronRight, Zap, Gauge, Award, Activity } from "lucide-react"
+import { Plus, ChevronRight, Gauge, Info } from "lucide-react"
 import { createVehicle, updateVehicle } from "@/actions/vehicle-actions"
 import { CloudinaryGallery } from "./cloudinary-gallery"
 
@@ -15,7 +15,7 @@ interface FleetFormProps {
 
 const PREDEFINED_BRANDS = [
   "Rolls-Royce", "Bentley", "Mercedes", "BMW", "Audi", "Lexus", "Porsche", 
-  "Ferrari", "Lamborghini", "Bugatti", "Maserati", "Range Rover", "Tesla", "Jaguar"
+  "Ferrari", "Lamborghini", "Bugatti", "Maserati", "Range Rover", "MINI JOHN", "MCLAREN"
 ]
 
 export function FleetForm({ initialData }: FleetFormProps) {
@@ -46,13 +46,9 @@ export function FleetForm({ initialData }: FleetFormProps) {
       brand: brandValue,
       pricePerDay: Number(formData.get('price')),
       images: images,
-      description: formData.get('description') as string,
-      specs: {
-        torque: formData.get('torque') as string,
-        topSpeed: formData.get('topSpeed') as string,
-        acceleration: formData.get('acceleration') as string,
-        power: formData.get('power') as string,
-      }
+      kilometersIncluded: Number(formData.get('kilometersIncluded')),
+      extraPricePerKm: Number(formData.get('extraPricePerKm')),
+      deposit: Number(formData.get('deposit')),
     }
 
     try {
@@ -142,32 +138,28 @@ export function FleetForm({ initialData }: FleetFormProps) {
               </div>
            </div>
 
-           {/* Technical Section */}
+           {/* Technical Section (Simplified) */}
            <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                  <div className="space-y-1.5">
-                    <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">{t('power')}</Label>
-                    <Input name="power" defaultValue={initialData?.specs?.power} required className="bg-white/5 border-white/10 rounded-2xl h-14 font-bold text-sm px-6" placeholder="770 HP" />
+                    <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">{t('kilometersIncluded')}</Label>
+                    <Input name="kilometersIncluded" type="number" defaultValue={initialData?.kilometersIncluded || 250} required className="bg-white/5 border-white/10 rounded-2xl h-14 font-bold text-sm px-6" placeholder="250" />
                  </div>
                  <div className="space-y-1.5">
-                    <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">{t('torqueLoad')}</Label>
-                    <Input name="torque" defaultValue={initialData?.specs?.torque} required className="bg-white/5 border-white/10 rounded-2xl h-14 font-bold text-sm px-6" placeholder="720 Nm" />
+                    <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">{t('extraPrice')}</Label>
+                    <Input name="extraPricePerKm" type="number" defaultValue={initialData?.extraPricePerKm || 5} required className="bg-white/5 border-white/10 rounded-2xl h-14 font-bold text-sm px-6" placeholder="5" />
                  </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                 <div className="space-y-1.5">
-                    <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">{t('zeroToHundred')}</Label>
-                    <Input name="acceleration" defaultValue={initialData?.specs?.acceleration} required className="bg-white/5 border-white/10 rounded-2xl h-14 font-bold text-sm px-6" placeholder="2.8s" />
-                 </div>
-                 <div className="space-y-1.5">
-                    <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">{t('vmaxSpeed')}</Label>
-                    <Input name="topSpeed" defaultValue={initialData?.specs?.topSpeed} required className="bg-white/5 border-white/10 rounded-2xl h-14 font-bold text-sm px-6" placeholder="350 km/h" />
-                 </div>
+              <div className="space-y-1.5">
+                 <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">{t('deposit')}</Label>
+                 <Input name="deposit" type="number" defaultValue={initialData?.deposit || 1000} required className="bg-white/5 border-white/10 rounded-2xl h-14 font-bold text-sm px-6" placeholder="1000" />
               </div>
 
-              <div className="space-y-1.5">
-                 <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">{t('description')}</Label>
-                 <textarea name="description" defaultValue={initialData?.description} required className="w-full bg-white/5 border-white/10 rounded-2xl h-[16.5rem] font-medium text-sm p-6 text-foreground outline-none resize-none" placeholder="Tactical tactical Overview..."></textarea>
+              <div className="p-6 rounded-[2rem] bg-amber-500/10 border border-amber-500/20 flex gap-4 items-start">
+                 <Info className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                 <p className="text-xs font-medium text-amber-200/80 leading-relaxed italic">
+                    {t('depositRemark')}
+                 </p>
               </div>
            </div>
         </div>

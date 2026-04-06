@@ -6,7 +6,7 @@ import { getVehicles } from "@/actions/vehicle-actions"
 
 const PREDEFINED_BRANDS = [
   "rolls-royce", "bentley", "mercedes", "bmw", "audi", "lexus", "porsche", 
-  "ferrari", "lamborghini", "bugatti", "maserati", "range rover", "tesla", "jaguar"
+  "ferrari", "lamborghini", "bugatti", "maserati", "range rover", "mini john", "mclaren"
 ]
 
 export default async function ServicesPage({ params, searchParams }: { params: Promise<{ locale: string }>, searchParams: Promise<{ brand?: string }> }) {
@@ -91,7 +91,7 @@ export default async function ServicesPage({ params, searchParams }: { params: P
                         <h2 className="text-3xl font-black italic tracking-tighter uppercase">{car.name}</h2>
                       </div>
                       <div className="text-right">
-                         <span className="text-2xl font-black tracking-tight">{car.pricePerDay}</span>
+                         <span className="text-2xl font-black tracking-tight">{car.pricePerDay}€</span>
                          <span className="text-[10px] font-bold block text-muted-foreground uppercase mt-[-4px]">{t('perDay')}</span>
                       </div>
                     </div>
@@ -100,15 +100,15 @@ export default async function ServicesPage({ params, searchParams }: { params: P
                       <div className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5">
                         <Zap className="w-4 h-4 text-primary" />
                         <div>
-                          <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-40">{t('specsPower')}</div>
-                          <div className="text-xs font-bold">{car.specs?.power}</div>
+                          <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-40">{t('kmIncluded')}</div>
+                          <div className="text-xs font-bold">{car.kilometersIncluded} Km</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5">
                         <Gauge className="w-4 h-4 text-accent" />
                         <div>
-                          <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-40">{t('specs0100')}</div>
-                          <div className="text-xs font-bold">{car.specs?.acceleration}</div>
+                          <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-40">{t('extraKmFee')}</div>
+                          <div className="text-xs font-bold">{car.extraPricePerKm} €</div>
                         </div>
                       </div>
                     </div>

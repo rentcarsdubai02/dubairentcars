@@ -9,7 +9,8 @@ import {
   Activity,
   Award,
   ShieldCheck,
-  CreditCard
+  CreditCard,
+  Info
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { getVehicleById } from "@/actions/vehicle-actions"
@@ -63,19 +64,19 @@ export default async function VehicleDetailsPage({ params }: { params: Promise<{
                       <h3 className="text-xl font-bold text-muted-foreground opacity-60 uppercase tracking-tighter italic">{car.brand} {car.modelYear}</h3>
                       <h2 className="text-6xl font-black italic tracking-tighter uppercase">{car.name}</h2>
                    </div>
-                   <div className="text-right">
-                      <div className="text-5xl font-black tracking-tighter animate-fade-in">{car.pricePerDay}</div>
-                       <div className="text-xs font-black text-muted-foreground uppercase opacity-40">{ts('perCycle')}</div>
-                   </div>
+                    <div className="text-right">
+                       <div className="text-5xl font-black tracking-tighter animate-fade-in">{car.pricePerDay}€</div>
+                        <div className="text-xs font-black text-muted-foreground uppercase opacity-40">{ts('perCycle')}</div>
+                    </div>
                 </div>
              </div>
 
              <div className="grid grid-cols-2 gap-6">
                 {[
-                  { l: ts('specsPower'), v: car.specs?.power, i: <Zap className="w-5 h-5" />, c: "text-primary" },
-                  { l: ts('specs0100'), v: car.specs?.acceleration, i: <Gauge className="w-5 h-5" />, c: "text-accent" },
-                  { l: ts('vMax'), v: car.specs?.topSpeed, i: <Activity className="w-5 h-5" />, c: "text-yellow-400" },
-                  { l: ts('torque'), v: car.specs?.torque, i: <Award className="w-5 h-5" />, c: "text-green-500" },
+                  { l: ts('kmIncluded'), v: car.kilometersIncluded + " Km", i: <Zap className="w-5 h-5" />, c: "text-primary" },
+                  { l: ts('extraKmFee'), v: car.extraPricePerKm + " €", i: <Gauge className="w-5 h-5" />, c: "text-accent" },
+                  { l: ts('deposit'), v: car.deposit + " €", i: <Activity className="w-5 h-5" />, c: "text-yellow-400" },
+                  { l: ts('statusLabel'), v: (car.status || 'active').toUpperCase(), i: <Award className="w-5 h-5" />, c: "text-green-500" },
                 ].map((spec, i) => (
                   <div key={i} className="glass-panel p-8 rounded-3xl bg-card border-white/5 flex flex-col justify-between h-40">
                      <div className={spec.c}>
@@ -89,11 +90,13 @@ export default async function VehicleDetailsPage({ params }: { params: Promise<{
                 ))}
              </div>
 
-             <div className="glass-panel p-10 rounded-[2.5rem] bg-card/60 border-white/10 space-y-8">
-                <div className="space-y-4">
-                   <h4 className="text-xs font-black uppercase tracking-widest text-primary">{ts('overview')}</h4>
-                   <p className="text-sm font-semibold text-muted-foreground leading-relaxed leading-relaxed">{car.description}</p>
-                </div>
+              <div className="glass-panel p-10 rounded-[2.5rem] bg-card/60 border-white/10 space-y-6">
+                 <div className="p-6 rounded-[2rem] bg-amber-500/10 border border-amber-500/20 flex gap-4 items-start">
+                    <Info className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                    <p className="text-xs font-medium text-amber-200/80 leading-relaxed italic">
+                       {t('depositRemark')}
+                    </p>
+                 </div>
 
                 <div className="flex items-center gap-6 pt-8 border-t border-white/5">
                    <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground opacity-60">

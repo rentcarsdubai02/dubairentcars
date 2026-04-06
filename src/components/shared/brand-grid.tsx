@@ -18,8 +18,8 @@ const BRANDS = [
   { name: "Bugatti", slug: "bugatti" },
   { name: "Maserati", slug: "maserati" },
   { name: "Range Rover", overrideUrl: "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 50'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='38' letter-spacing='0.15em' fill='black'%3ERANGE ROVER%3C/text%3E%3C/svg%3E" },
-  { name: "Tesla", slug: "tesla" },
-  { name: "Jaguar", overrideUrl: "https://www.carlogos.org/logo/Jaguar-logo.png" },
+  { name: "MINI JOHN", overrideUrl: "https://www.carlogos.org/logo/Mini-logo.png" },
+  { name: "MCLAREN", overrideUrl: "https://www.carlogos.org/logo/McLaren-logo.png" },
   { name: "Other", isOther: true }
 ]
 

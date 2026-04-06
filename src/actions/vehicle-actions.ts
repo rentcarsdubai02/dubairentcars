@@ -1,7 +1,7 @@
 'use server'
 
 import connectToDatabase from "@/lib/mongodb"
-import Vehicle from "@/models/Vehicle"
+import VehicleV2 from "@/models/Vehicle"
 import { revalidatePath } from "next/cache"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth-options"
@@ -12,14 +12,10 @@ export async function createVehicle(formData: {
   modelYear?: string;
   category?: string;
   pricePerDay: number;
-  images: string[]; // From Cloudinary gallery
-  description: string;
-  specs: {
-    torque: string;
-    topSpeed: string;
-    acceleration: string;
-    power: string;
-  }
+  images: string[];
+  kilometersIncluded: number;
+  extraPricePerKm: number;
+  deposit: number;
 }) {
   const session = await getServerSession(authOptions)
   if (!session || (session.user as any).role === 'client') {
@@ -28,7 +24,7 @@ export async function createVehicle(formData: {
 
   await connectToDatabase();
   
-  const newVehicle = await Vehicle.create({
+  const newVehicle = await VehicleV2.create({
     ...formData,
     createdBy: (session.user as any).id
   });
@@ -46,7 +42,7 @@ export async function deleteVehicle(vehicleId: string) {
 
   await connectToDatabase();
   
-  const result = await Vehicle.findByIdAndDelete(vehicleId);
+  const result = await VehicleV2.findByIdAndDelete(vehicleId);
   
   if (!result) {
     throw new Error("Vehicle node not found");
@@ -64,13 +60,9 @@ export async function updateVehicle(id: string, formData: {
   category?: string;
   pricePerDay?: number;
   images?: string[];
-  description?: string;
-  specs?: {
-    torque?: string;
-    topSpeed?: string;
-    acceleration?: string;
-    power?: string;
-  };
+  kilometersIncluded?: number;
+  extraPricePerKm?: number;
+  deposit?: number;
 }) {
   const session = await getServerSession(authOptions)
   if (!session || (session.user as any).role === 'client') {
@@ -79,7 +71,7 @@ export async function updateVehicle(id: string, formData: {
 
   await connectToDatabase();
   
-  const result = await Vehicle.findByIdAndUpdate(id, formData, { new: true });
+  const result = await VehicleV2.findByIdAndUpdate(id, formData, { new: true });
   
   revalidatePath('/[locale]/services', 'page')
   revalidatePath('/[locale]/admin/fleet', 'page')
@@ -94,7 +86,7 @@ export async function updateVehicleStatus(vehicleId: string, status: string) {
 
   await connectToDatabase();
   
-  const result = await Vehicle.findByIdAndUpdate(vehicleId, { status }, { new: true });
+  const result = await VehicleV2.findByIdAndUpdate(vehicleId, { status }, { new: true });
   
   revalidatePath('/[locale]/admin/fleet', 'page')
   return { success: true, vehicle: JSON.parse(JSON.stringify(result)) }
@@ -102,12 +94,12 @@ export async function updateVehicleStatus(vehicleId: string, status: string) {
 
 export async function getVehicles() {
    await connectToDatabase();
-   const vehicles = await Vehicle.find({ status: 'active' }).sort({ createdAt: -1 });
+   const vehicles = await VehicleV2.find({ status: 'active' }).sort({ createdAt: -1 });
    return JSON.parse(JSON.stringify(vehicles));
 }
 
 export async function getVehicleById(id: string) {
    await connectToDatabase();
-   const vehicle = await Vehicle.findById(id);
+   const vehicle = await VehicleV2.findById(id);
    return JSON.parse(JSON.stringify(vehicle));
 }

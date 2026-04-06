@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { 
-  BarChart3, Calendar, Car, CheckCircle2, Clock, 
+import {
+  BarChart3, Calendar, Car, CheckCircle2, Clock,
   X, ChevronRight, User, CreditCard, AlertCircle,
   ShieldCheck, Loader2, RefreshCw, Trash2
 } from 'lucide-react'
@@ -11,17 +11,17 @@ import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 
 const STATUS_COLORS: Record<string, string> = {
-  pending:   'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-  approved:  'bg-green-500/20 text-green-400 border-green-500/30',
-  refused:   'bg-red-500/20 text-red-400 border-red-500/30',
+  pending: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+  approved: 'bg-green-500/20 text-green-400 border-green-500/30',
+  refused: 'bg-red-500/20 text-red-400 border-red-500/30',
   completed: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
 }
 
 const PAYMENT_COLORS: Record<string, string> = {
-  pending:  'bg-yellow-500/20 text-yellow-400',
-  paid:     'bg-green-500/20 text-green-400',
+  pending: 'bg-yellow-500/20 text-yellow-400',
+  paid: 'bg-green-500/20 text-green-400',
   refunded: 'bg-purple-500/20 text-purple-400',
-  failed:   'bg-red-500/20 text-red-400',
+  failed: 'bg-red-500/20 text-red-400',
 }
 
 interface Props {
@@ -64,7 +64,7 @@ export function StatistiquesClient({ initialBookings }: Props) {
       notes: editNotes,
     })
     // Optimistic UI update
-    setBookings(prev => prev.map(b => b._id === selected._id 
+    setBookings(prev => prev.map(b => b._id === selected._id
       ? { ...b, status: editStatus, paymentStatus: editPayment, notes: editNotes }
       : b
     ))
@@ -74,15 +74,15 @@ export function StatistiquesClient({ initialBookings }: Props) {
   }
 
   const stats = {
-    total:    bookings.length,
+    total: bookings.length,
     approved: bookings.filter(b => b.status === 'approved').length,
-    pending:  bookings.filter(b => b.status === 'pending').length,
-    paid:     bookings.filter(b => b.paymentStatus === 'paid').length,
+    pending: bookings.filter(b => b.status === 'pending').length,
+    paid: bookings.filter(b => b.paymentStatus === 'paid').length,
   }
 
   return (
     <div className="container px-6 mx-auto relative z-10 space-y-12">
-      
+
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
@@ -104,10 +104,10 @@ export function StatistiquesClient({ initialBookings }: Props) {
       {/* KPI Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {[
-          { l: 'Total Demandes', v: stats.total,    i: <BarChart3 className="w-5 h-5" />,     c: 'text-primary' },
-          { l: 'Approuvées',     v: stats.approved,  i: <CheckCircle2 className="w-5 h-5" />, c: 'text-green-400' },
-          { l: 'En Attente',     v: stats.pending,   i: <Clock className="w-5 h-5" />,        c: 'text-yellow-400' },
-          { l: 'Paiements OK',   v: stats.paid,      i: <CreditCard className="w-5 h-5" />,   c: 'text-blue-400' },
+          { l: 'Total Demandes', v: stats.total, i: <BarChart3 className="w-5 h-5" />, c: 'text-primary' },
+          { l: 'Approuvées', v: stats.approved, i: <CheckCircle2 className="w-5 h-5" />, c: 'text-green-400' },
+          { l: 'En Attente', v: stats.pending, i: <Clock className="w-5 h-5" />, c: 'text-yellow-400' },
+          { l: 'Paiements OK', v: stats.paid, i: <CreditCard className="w-5 h-5" />, c: 'text-blue-400' },
         ].map((s, i) => (
           <div key={i} className="glass-panel p-6 rounded-3xl bg-card/40 border-white/5 flex flex-col justify-between h-36">
             <div className={s.c}>{s.i}</div>
@@ -141,66 +141,66 @@ export function StatistiquesClient({ initialBookings }: Props) {
             </div>
 
             {bookings.map((b) => (
-                <div
-                  key={b._id}
-                  onClick={() => openModal(b)}
-                  className="flex flex-col lg:grid lg:grid-cols-12 gap-4 items-start lg:items-center p-5 md:p-4 rounded-2xl bg-white/3 hover:bg-white/8 border border-white/5 hover:border-primary/20 cursor-pointer transition-all group"
-                >
-                  {/* Client */}
-                  <div className="lg:col-span-3 flex items-center gap-3 w-full">
-                    <div className="w-10 h-10 lg:w-9 lg:h-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-black text-sm shrink-0">
-                      {b.userId?.firstName?.[0] || b.clientName?.[0] || '?'}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="text-sm font-black truncate">{b.userId?.firstName || b.clientName || '—'} {b.userId?.lastName || ''}</div>
-                      <div className="text-[10px] text-muted-foreground opacity-60 truncate">{b.userId?.email || b.clientEmail || ''}</div>
-                    </div>
-                    <ChevronRight className="w-4 h-4 lg:hidden opacity-30 group-hover:translate-x-1 transition-all" />
+              <div
+                key={b._id}
+                onClick={() => openModal(b)}
+                className="flex flex-col lg:grid lg:grid-cols-12 gap-4 items-start lg:items-center p-5 md:p-4 rounded-2xl bg-white/3 hover:bg-white/8 border border-white/5 hover:border-primary/20 cursor-pointer transition-all group"
+              >
+                {/* Client */}
+                <div className="lg:col-span-3 flex items-center gap-3 w-full">
+                  <div className="w-10 h-10 lg:w-9 lg:h-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-black text-sm shrink-0">
+                    {b.userId?.firstName?.[0] || b.clientName?.[0] || '?'}
                   </div>
-
-                  {/* Véhicule */}
-                  <div className="lg:col-span-3 w-full border-t border-white/5 pt-3 lg:pt-0 lg:border-0">
-                    <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">Unité</div>
-                    <div className="text-sm font-black uppercase italic truncate">{b.vehicleId?.brand} {b.vehicleId?.name || '—'}</div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-black truncate">{b.userId?.firstName || b.clientName || '—'} {b.userId?.lastName || ''}</div>
+                    <div className="text-[10px] text-muted-foreground opacity-60 truncate">{b.userId?.email || b.clientEmail || ''}</div>
                   </div>
+                  <ChevronRight className="w-4 h-4 lg:hidden opacity-30 group-hover:translate-x-1 transition-all" />
+                </div>
 
-                  {/* Date */}
-                  <div className="lg:col-span-2 w-full lg:text-center">
-                    <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">Date</div>
-                    <div className="text-xs font-bold text-muted-foreground">{new Date(b.createdAt).toLocaleDateString('fr-FR')}</div>
-                  </div>
+                {/* Véhicule */}
+                <div className="lg:col-span-3 w-full border-t border-white/5 pt-3 lg:pt-0 lg:border-0">
+                  <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">Unité</div>
+                  <div className="text-sm font-black uppercase italic truncate">{b.vehicleId?.brand} {b.vehicleId?.name || '—'}</div>
+                </div>
 
-                  {/* Statut */}
-                  <div className="lg:col-span-2 w-full lg:text-center">
-                    <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">Demande</div>
-                    <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${STATUS_COLORS[b.status] || STATUS_COLORS.pending}`}>
-                      {b.status || 'pending'}
+                {/* Date */}
+                <div className="lg:col-span-2 w-full lg:text-center">
+                  <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">Date</div>
+                  <div className="text-xs font-bold text-muted-foreground">{new Date(b.createdAt).toLocaleDateString('fr-FR')}</div>
+                </div>
+
+                {/* Statut */}
+                <div className="lg:col-span-2 w-full lg:text-center">
+                  <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">Demande</div>
+                  <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${STATUS_COLORS[b.status] || STATUS_COLORS.pending}`}>
+                    {b.status || 'pending'}
+                  </span>
+                </div>
+
+                {/* Paiement + Actions */}
+                <div className="lg:col-span-2 flex items-center justify-between gap-2 w-full border-t border-white/5 pt-3 lg:pt-0 lg:border-0 lg:justify-end">
+                  <div className="flex flex-col lg:items-end">
+                    <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">Finances</div>
+                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shrink-0 ${PAYMENT_COLORS[b.paymentStatus] || PAYMENT_COLORS.pending}`}>
+                      {b.paymentStatus || 'pending'}
                     </span>
                   </div>
-
-                  {/* Paiement + Actions */}
-                  <div className="lg:col-span-2 flex items-center justify-between gap-2 w-full border-t border-white/5 pt-3 lg:pt-0 lg:border-0 lg:justify-end">
-                    <div className="flex flex-col lg:items-end">
-                      <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">Finances</div>
-                      <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shrink-0 ${PAYMENT_COLORS[b.paymentStatus] || PAYMENT_COLORS.pending}`}>
-                        {b.paymentStatus || 'pending'}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={(e) => handleDelete(b._id, e)}
-                        disabled={deleting === b._id}
-                        className="w-10 h-10 lg:w-8 lg:h-8 rounded-xl flex items-center justify-center bg-red-500/10 hover:bg-red-500/30 text-red-400 hover:text-red-300 transition-all shrink-0"
-                        title="Supprimer"
-                      >
-                        {deleting === b._id 
-                          ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                          : <Trash2 className="w-4 h-4 lg:w-3.5 lg:h-3.5" />}
-                      </button>
-                      <ChevronRight className="hidden lg:block w-4 h-4 opacity-30 group-hover:translate-x-1 group-hover:opacity-80 transition-all" />
-                    </div>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={(e) => handleDelete(b._id, e)}
+                      disabled={deleting === b._id}
+                      className="w-10 h-10 lg:w-8 lg:h-8 rounded-xl flex items-center justify-center bg-red-500/10 hover:bg-red-500/30 text-red-400 hover:text-red-300 transition-all shrink-0"
+                      title="Supprimer"
+                    >
+                      {deleting === b._id
+                        ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        : <Trash2 className="w-4 h-4 lg:w-3.5 lg:h-3.5" />}
+                    </button>
+                    <ChevronRight className="hidden lg:block w-4 h-4 opacity-30 group-hover:translate-x-1 group-hover:opacity-80 transition-all" />
                   </div>
                 </div>
+              </div>
             ))}
           </div>
         )}
@@ -208,11 +208,11 @@ export function StatistiquesClient({ initialBookings }: Props) {
 
       {/* ========== MODAL ========== */}
       {selected && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
           onClick={() => setSelected(null)}
         >
-          <div 
+          <div
             className="bg-card border border-white/10 p-8 rounded-3xl w-full max-w-2xl shadow-2xl relative max-h-[90vh] overflow-y-auto"
             onClick={e => e.stopPropagation()}
           >
@@ -250,7 +250,7 @@ export function StatistiquesClient({ initialBookings }: Props) {
                 <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Début:</span> <span className="font-black">{new Date(selected.startDate).toLocaleDateString('fr-FR')}</span></div>
                 <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Fin:</span> <span className="font-black">{new Date(selected.endDate).toLocaleDateString('fr-FR')}</span></div>
                 <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Lieu:</span> <span className="font-black">{selected.pickupLocation || 'Dubai Hub'}</span></div>
-                <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Total:</span> <span className="font-black text-primary">{selected.totalPrice} AED</span></div>
+                <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Total:</span> <span className="font-black text-primary">{selected.totalPrice} €</span></div>
               </div>
             </div>
 
@@ -326,8 +326,8 @@ export function StatistiquesClient({ initialBookings }: Props) {
                 Annuler
               </Button>
               <Button onClick={handleSave} disabled={saving} className="flex-1 bg-primary font-black text-xs uppercase tracking-widest rounded-2xl h-12 shadow-lg shadow-primary/20">
-                {saving 
-                  ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> 
+                {saving
+                  ? <Loader2 className="w-4 h-4 animate-spin mx-auto" />
                   : <><CheckCircle2 className="w-4 h-4 mr-2" /> Enregistrer</>
                 }
               </Button>

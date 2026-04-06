@@ -17,12 +17,9 @@ const VehicleSchema = new Schema({
     required: true,
     validate: [(val: string[]) => val.length > 0, 'At least one image is required']
   },
-  specs: {
-    torque: String,
-    topSpeed: String,
-    acceleration: String, 
-    power: String, 
-  },
+  kilometersIncluded: { type: Number, default: 250 },
+  extraPricePerKm: { type: Number, default: 5 },
+  deposit: { type: Number, default: 1000 },
   status: {
     type: String,
     enum: ['active', 'maintenance', 'in-transit', 'rented'],
@@ -32,10 +29,7 @@ const VehicleSchema = new Schema({
     type: String,
     default: 'Dubai Hub',
   },
-  description: {
-    type: String, // Multilingual description could be an object, but we'll start simple
-    required: true,
-  },
+  description: { type: String, required: false },
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -47,6 +41,6 @@ const VehicleSchema = new Schema({
   },
 });
 
-const Vehicle = models.Vehicle || model('Vehicle', VehicleSchema);
+const VehicleV2 = mongoose.models.VehicleV2 || mongoose.model('VehicleV2', VehicleSchema, 'vehicles');
 
-export default Vehicle;
+export default VehicleV2;

@@ -6,7 +6,7 @@ const BRANDS = [
   "Rolls-Royce", "Bentley", "Mercedes", "BMW", 
   "Audi", "Lexus", "Porsche", "Ferrari", "Lamborghini", 
   "Bugatti", "Maserati", "Range Rover", 
-  "Tesla", "Jaguar"
+  "MINI JOHN", "MCLAREN"
 ]
 
 export function BrandMarquee() {
