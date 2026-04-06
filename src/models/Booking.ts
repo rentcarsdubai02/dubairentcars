@@ -3,7 +3,7 @@ import mongoose, { Schema, model, models } from 'mongoose';
 const BookingSchema = new Schema({
   vehicleId: {
     type: Schema.Types.ObjectId,
-    ref: 'Vehicle',
+    ref: 'VehicleV2',
     required: true,
   },
   userId: {
