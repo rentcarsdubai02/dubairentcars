@@ -100,7 +100,7 @@ export default async function VehicleDetailsPage({ params }: { params: Promise<{
 
                 <div className="flex items-center gap-6 pt-8 border-t border-white/5">
                    <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground opacity-60">
-                      <MapPin className="w-4 h-4" /> DUBAI HUB 01
+                      <MapPin className="w-4 h-4" /> DUBAI RENT CARS
                    </div>
                    <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground opacity-60">
                       <Calendar className="w-4 h-4" /> {car.modelYear} {ts('model')}

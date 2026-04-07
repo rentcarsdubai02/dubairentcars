@@ -62,9 +62,11 @@ export function Header() {
   return (
     <header className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-      scrolled 
-        ? "py-4 bg-background/80 backdrop-blur-3xl border-b border-primary/20 shadow-[0_0_50px_rgba(0,0,0,0.5)] px-6 md:px-12" 
-        : "py-6 bg-background/40 backdrop-blur-md border-b border-white/5 px-6 md:px-12"
+      isMenuOpen
+        ? "py-4 bg-[#0a0a0a] border-b border-white/10 px-6 md:px-12"
+        : scrolled 
+          ? "py-4 bg-background/80 backdrop-blur-3xl border-b border-primary/20 shadow-[0_0_50px_rgba(0,0,0,0.5)] px-6 md:px-12" 
+          : "py-6 bg-background/40 backdrop-blur-md border-b border-white/5 px-6 md:px-12"
     )}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center group">
@@ -165,63 +167,99 @@ export function Header() {
         </button>
       </div>
 
-      {/* Mobile Nav */}
-      <div className={cn(
-        "fixed inset-0 top-0 bg-background/98 backdrop-blur-3xl z-[60] transition-all duration-700 p-8 flex flex-col items-center justify-center gap-12 md:hidden",
-        isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-full pointer-events-none"
-      )}>
-        <button className="absolute top-8 right-8 p-3 rounded-full bg-white/5 border border-white/10" onClick={() => setIsMenuOpen(false)}>
-           <X className="h-6 w-6" />
-        </button>
+      {/* Mobile Nav - Left Drawer */}
+      {/* Overlay */}
+      <div
+        className={cn(
+          "fixed inset-0 z-[59] bg-black/70 transition-all duration-500 md:hidden",
+          isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        )}
+        onClick={() => setIsMenuOpen(false)}
+      />
 
-        <nav className="flex flex-col items-center gap-8 w-full max-w-xs">
-          <div className="mb-4">
-             <LocaleSwitcher />
-          </div>
-          {[
-            { href: '/', label: t('home'), icon: <LayoutTemplate className="w-6 h-6" /> },
-            { href: '/about', label: t('about'), icon: <ShieldAlert className="w-6 h-6" /> },
-            { href: '/services', label: t('services'), icon: <Car className="w-6 h-6" /> },
-            { href: '/contact', label: t('contact'), icon: <Ticket className="w-6 h-6" /> },
-          ].map((link) => (
-            <Link 
-              key={link.href} 
-              href={link.href} 
-              onClick={() => setIsMenuOpen(false)}
-              className="text-4xl font-black hover:text-primary transition-all uppercase tracking-tighter italic flex items-center gap-6"
-            >
-              <span className="text-primary">{link.icon}</span>
-              {link.label}
-            </Link>
-          ))}
-          {isOperator && (
-             <div className="flex flex-col items-center gap-4 mt-4 py-6 border-t border-white/10 w-full">
-                <Link href={isManagement ? "/admin/users" : "/admin/fleet"} onClick={() => setIsMenuOpen(false)} className="text-xl font-black text-primary animate-pulse italic uppercase">
-                   {t('admin')}
+      {/* Drawer Panel */}
+      <div
+        className={cn(
+          "fixed top-0 right-0 h-full w-[80vw] max-w-[320px] z-[60] border-l border-white/10 shadow-2xl transition-all duration-500 flex flex-col md:hidden bg-[#0a0a0a]",
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        )}
+        style={{ backgroundColor: '#0a0a0a' }}
+      >
+        {/* Drawer Header */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+          <Link href="/" onClick={() => setIsMenuOpen(false)}>
+            <Image src="/Logo dubai rent cars3.png" alt="Dubai Rent Cars" width={120} height={45} className="object-contain h-10 w-auto" />
+          </Link>
+          <button className="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors" onClick={() => setIsMenuOpen(false)}>
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        {/* Drawer Content */}
+        <div className="flex flex-col flex-1 justify-between px-6 py-6">
+          {/* Nav Links */}
+          <nav className="flex flex-col gap-2">
+            {[
+              { href: '/', label: t('home'), icon: <LayoutTemplate className="w-5 h-5" /> },
+              { href: '/about', label: t('about'), icon: <ShieldAlert className="w-5 h-5" /> },
+              { href: '/services', label: t('services'), icon: <Car className="w-5 h-5" /> },
+              { href: '/contact', label: t('contact'), icon: <Ticket className="w-5 h-5" /> },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-4 px-4 py-4 rounded-2xl text-sm font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/10 border border-transparent hover:border-primary/20 transition-all duration-300 group"
+              >
+                <span className="text-primary group-hover:scale-110 transition-transform">{link.icon}</span>
+                {link.label}
+              </Link>
+            ))}
+
+            {isOperator && (
+              <Link
+                href={isManagement ? "/admin/users" : "/admin/fleet"}
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-4 px-4 py-4 rounded-2xl text-sm font-black uppercase tracking-widest text-primary bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-all duration-300 mt-2"
+              >
+                <ShieldAlert className="w-5 h-5" />
+                {t('admin')}
+              </Link>
+            )}
+          </nav>
+
+          {/* Bottom Actions */}
+          <div className="flex flex-col gap-3">
+            <div className="mb-2">
+              <LocaleSwitcher />
+            </div>
+
+            {!session ? (
+              <>
+                <Link href="/login" onClick={() => setIsMenuOpen(false)} className="w-full text-center py-4 bg-white/5 border border-white/10 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-white/10 transition-colors">
+                  {t('login')}
                 </Link>
-             </div>
-          )}
-          {!session && (
-             <div className="flex flex-col gap-4 w-full mt-4">
-                <Link href="/login" onClick={() => setIsMenuOpen(false)} className="w-full text-center py-5 bg-white/5 border border-white/10 rounded-2xl font-black uppercase tracking-widest text-xs">{t('login')}</Link>
-                <Link href="/signup" onClick={() => setIsMenuOpen(false)} className="w-full text-center py-5 bg-primary text-primary-foreground rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-primary/20">{t('signup')}</Link>
-             </div>
-          )}
-          {session && (
-             <div className="flex flex-col gap-4 w-full mt-4 border-t border-white/10 pt-8">
-                <button 
-                  onClick={() => {
-                    handleSignOut();
-                    setIsMenuOpen(false);
-                  }} 
-                  className="w-full flex items-center justify-center gap-3 py-5 bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl font-black uppercase tracking-widest text-xs"
+                <Link href="/signup" onClick={() => setIsMenuOpen(false)} className="w-full text-center py-4 bg-primary text-primary-foreground rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-primary/30 hover:bg-primary/90 transition-colors">
+                  {t('signup')}
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 px-4 py-4 rounded-2xl text-sm font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/10 border border-white/10 transition-all">
+                  <BarChart3 className="w-5 h-5 text-primary" />
+                  {t('dashboard')}
+                </Link>
+                <button
+                  onClick={() => { handleSignOut(); setIsMenuOpen(false); }}
+                  className="w-full flex items-center justify-center gap-3 py-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-red-500/20 transition-colors"
                 >
                   <LogOut className="w-4 h-4" />
                   {t('signOut')}
                 </button>
-             </div>
-          )}
-        </nav>
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </header>
   )
