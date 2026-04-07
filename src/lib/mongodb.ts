@@ -37,7 +37,7 @@ async function connectToDatabase() {
       socketTimeoutMS: 45000,          // 45s for operations
       connectTimeoutMS: 10000,         // 10s to establish connection
       heartbeatFrequencyMS: 10000,     // Check connection every 10s
-      dbName: 'rent_car',              // Explicit database name
+      dbName: 'test',                  // Point to default database where previous data was stored
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
