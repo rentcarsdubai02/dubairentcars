@@ -61,10 +61,10 @@ export function Header() {
 
   return (
     <header className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
       scrolled 
-        ? "py-3 bg-background/95 backdrop-blur-2xl border-b border-white/10 shadow-2xl px-6 md:px-12" 
-        : "py-5 md:py-8 bg-transparent px-6 md:px-12"
+        ? "py-4 bg-background/80 backdrop-blur-3xl border-b border-primary/20 shadow-[0_0_50px_rgba(0,0,0,0.5)] px-6 md:px-12" 
+        : "py-6 bg-background/40 backdrop-blur-md border-b border-white/5 px-6 md:px-12"
     )}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center group">
@@ -178,13 +178,19 @@ export function Header() {
           <div className="mb-4">
              <LocaleSwitcher />
           </div>
-          {navLinks.map((link) => (
+          {[
+            { href: '/', label: t('home'), icon: <LayoutTemplate className="w-6 h-6" /> },
+            { href: '/about', label: t('about'), icon: <ShieldAlert className="w-6 h-6" /> },
+            { href: '/services', label: t('services'), icon: <Car className="w-6 h-6" /> },
+            { href: '/contact', label: t('contact'), icon: <Ticket className="w-6 h-6" /> },
+          ].map((link) => (
             <Link 
               key={link.href} 
               href={link.href} 
               onClick={() => setIsMenuOpen(false)}
-              className="text-3xl font-black hover:text-primary transition-all uppercase tracking-tighter italic"
+              className="text-4xl font-black hover:text-primary transition-all uppercase tracking-tighter italic flex items-center gap-6"
             >
+              <span className="text-primary">{link.icon}</span>
               {link.label}
             </Link>
           ))}
