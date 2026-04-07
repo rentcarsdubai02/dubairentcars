@@ -11,7 +11,7 @@ const BRANDS = [
 
 export function BrandMarquee() {
   return (
-    <div className="w-full py-8 overflow-hidden bg-white/5 border-y border-white/5 relative flex items-center">
+    <div className="w-full py-12 overflow-hidden bg-transparent relative flex items-center">
       {/* CSS Animation defined locally for safety & speed */}
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes scroll {
