@@ -22,9 +22,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] border border-primary/20">
                      {t('About.originTitle')}
                   </div>
-                  <h2 className="text-7xl md:text-[8rem] font-black tracking-tighter uppercase italic leading-[0.8]">
+                  <h2 className="text-5xl sm:text-7xl md:text-[8rem] font-black tracking-tighter uppercase italic leading-[0.8]">
                      {t('About.mainHero1')} <br />
-                     <span className="text-primary underline underline-offset-[1.5rem]">{t('About.mainHero2')}</span>
+                     <span className="text-primary underline underline-offset-[1rem] md:underline-offset-[1.5rem]">{t('About.mainHero2')}</span>
                   </h2>
                   <p className="max-w-xl text-lg md:text-xl text-muted-foreground font-medium uppercase tracking-widest leading-relaxed opacity-70">
                      {t('About.mainDesc')}

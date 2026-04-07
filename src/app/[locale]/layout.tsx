@@ -1,5 +1,5 @@
 import {NextIntlClientProvider} from 'next-intl';
-import {getMessages, setRequestLocale} from 'next-intl/server';
+import {getMessages, setRequestLocale, getTranslations} from 'next-intl/server';
 import {routing} from '@/i18n/routing';
 import {notFound} from 'next/navigation';
 import "@/app/globals.css";
@@ -9,6 +9,41 @@ import {Footer} from "@/components/shared/footer";
 import {AuthProvider} from "@/components/providers/session-provider";
 
 const inter = Inter({subsets: ['latin']});
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
+
+  return {
+    title: {
+      template: `%s | ${t('siteName')}`,
+      default: t('defaultTitle'),
+    },
+    description: t('defaultDescription'),
+    keywords: ["Luxury Car Rental Dubai", "Rent Lamborghini Dubai", "Dubai Rent Cars", "SUV Dubai", "Luxury Hire UAE"],
+    authors: [{ name: "Dubai Rent Cars" }],
+    openGraph: {
+      title: t('defaultTitle'),
+      description: t('defaultDescription'),
+      url: 'https://dubairentcars.vercel.app',
+      siteName: t('siteName'),
+      images: [
+        {
+          url: '/og-image.jpg', // You should add this image in public folder later
+          width: 1200,
+          height: 630,
+        },
+      ],
+      locale: locale,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('defaultTitle'),
+      description: t('defaultDescription'),
+    },
+  };
+}
 
 export default async function LocaleLayout(
   props: {

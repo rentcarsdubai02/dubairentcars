@@ -34,6 +34,14 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isMenuOpen])
+
   const handleSignOut = async () => {
     await signOut({ redirect: false })
     router.push('/')
@@ -53,8 +61,10 @@ export function Header() {
 
   return (
     <header className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 md:px-12",
-      scrolled ? "py-3 bg-background/40 backdrop-blur-2xl border-b border-white/5 shadow-2xl" : "py-8 bg-transparent"
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      scrolled 
+        ? "py-3 bg-background/95 backdrop-blur-2xl border-b border-white/10 shadow-2xl px-6 md:px-12" 
+        : "py-5 md:py-8 bg-transparent px-6 md:px-12"
     )}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center group">
@@ -147,7 +157,10 @@ export function Header() {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden p-2 rounded-xl border border-white/10 bg-white/5" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <button 
+          className="md:hidden p-2.5 rounded-xl border border-white/20 bg-background/80 backdrop-blur-md shadow-lg" 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
           {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>

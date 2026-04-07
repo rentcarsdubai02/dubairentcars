@@ -48,7 +48,7 @@ export function VehicleGallery({ images, name }: VehicleGalleryProps) {
       </div>
 
       {/* Thumbnails Matrix */}
-      <div className="grid grid-cols-4 md:grid-cols-5 gap-4">
+      <div className="grid grid-cols-4 md:grid-cols-5 gap-2 sm:gap-4">
         {images.map((img, i) => (
           <div 
             key={i} 

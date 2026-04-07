@@ -47,6 +47,7 @@
   /* Fix: Use standard background-color for glass effects to avoid bg-card/60 build error in v4 */
   .glass-panel {
     background-color: oklch(from var(--card) l c h / 0.6);
+    -webkit-backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
     border: 1px solid oklch(1 0 0 / 0.1);
     box-shadow: 0 20px 50px -12px oklch(0 0 0 / 0.5);

@@ -1,4 +1,9 @@
 {
+  "Metadata": {
+    "siteName": "Dubai Rent Cars",
+    "defaultTitle": "Dubai Rent Cars | Luxury Car & SUV Rental Dubai",
+    "defaultDescription": "Rent the best luxury cars and SUVs in Dubai. Wide fleet of Lamborghini, Ferrari, Rolls Royce and more. 24/7 VIP Service."
+  },
   "Navigation": {
     "home": "Home",
     "about": "About",
@@ -132,8 +137,9 @@
     "rentalContract": "RENTAL CONTRACT",
     "vehicleConfig": "VEHICLE CONFIGURATION",
     "transactionHub": "TRANSACTION HUB ID",
-    "powerLabel": "Horsepower",
-    "topSpeedLabel": "Top Speed",
+    "kmIncluded": "Included Kilometers",
+    "extraKmFee": "Extra Kilometer Fee",
+    "deposit": "Security Deposit",
     "modelYearLabel": "Model Year",
     "startDateLabel": "Start Date",
     "endDateLabel": "End Date",

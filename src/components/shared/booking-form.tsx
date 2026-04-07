@@ -162,8 +162,10 @@ export function BookingForm({ vehicle, locations, hasActivePromos = false, user,
 
       doc.setFontSize(14); doc.setFont('helvetica', 'bold'); doc.text(t('vehicleConfig').toUpperCase(), 20, 110)
       doc.setFontSize(11); doc.setFont('helvetica', 'normal'); doc.text(`${vehicle.brand} ${vehicle.name}`, 25, 120)
-      doc.text(`${t('powerLabel')}: ${vehicle.specs?.power}`, 25, 128); doc.text(`${t('topSpeedLabel')}: ${vehicle.specs?.topSpeed}`, 25, 136)
-      doc.text(`${t('modelYearLabel')}: ${vehicle.modelYear}`, 25, 144)
+      doc.text(`${t('kmIncluded')}: ${vehicle.kilometersIncluded} Km`, 25, 128); 
+      doc.text(`${t('extraKmFee')}: ${vehicle.extraPricePerKm} €`, 25, 136)
+      doc.text(`${t('deposit')}: ${vehicle.deposit} €`, 25, 144)
+      doc.text(`${t('modelYearLabel')}: ${vehicle.modelYear}`, 25, 152)
 
       doc.setFontSize(14); doc.setFont('helvetica', 'bold'); doc.text(t('duration').toUpperCase(), 20, 160)
       doc.setFontSize(11); doc.setFont('helvetica', 'normal'); doc.text(`${t('startDateLabel')}: ${new Date(bookingData?.startDate).toLocaleString()}`, 25, 170)
@@ -475,10 +477,10 @@ export function BookingForm({ vehicle, locations, hasActivePromos = false, user,
 
                <div className="grid grid-cols-2 gap-6">
                   {[
-                     { l: 'Performance Power', v: vehicle.specs?.power, i: <Zap className="w-4 h-4" /> },
-                     { l: 'Max Velocity', v: vehicle.specs?.topSpeed, i: <Activity className="w-4 h-4" /> },
-                     { l: 'Production Year', v: vehicle.modelYear, i: <CalendarDays className="w-4 h-4" /> },
-                     { l: 'Price Per Cycle', v: `${vehicle.pricePerDay} €`, i: <Gauge className="w-4 h-4" /> },
+                     { l: t('kmIncluded'), v: `${vehicle.kilometersIncluded} Km`, i: <Zap className="w-4 h-4" /> },
+                     { l: t('extraKmFee'), v: `${vehicle.extraPricePerKm} €`, i: <Activity className="w-4 h-4" /> },
+                     { l: t('deposit'), v: `${vehicle.deposit} €`, i: <ShieldCheck className="w-4 h-4" /> },
+                     { l: t('pricePerDay'), v: `${vehicle.pricePerDay} €`, i: <Gauge className="w-4 h-4" /> },
                   ].map((spec, i) => (
                      <div key={i} className="p-6 rounded-3xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
                         <div className="text-primary mb-3">{spec.i}</div>
