@@ -8,21 +8,46 @@ import {
   MapPin, Mail, Phone, MessageCircle, Video, Link2, LayoutTemplate
 } from 'lucide-react'
 
+// Force the footer to always fetch fresh data from DB
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 async function getFooterConfig() {
   try {
     await connectToDatabase()
-    let cfg = await FooterConfig.findOne({ singleton: 'main' }).lean()
-    if (!cfg) cfg = await FooterConfig.create({ singleton: 'main' })
+    // Using lean() and making sure we get a plain object
+    const cfg = await FooterConfig.findOne({ singleton: 'main' }).lean()
+    if (!cfg) {
+      const newCfg = await FooterConfig.create({ singleton: 'main' })
+      return JSON.parse(JSON.stringify(newCfg))
+    }
     return JSON.parse(JSON.stringify(cfg))
-  } catch {
+  } catch (error) {
+    console.error('Footer fetch error:', error)
     return {}
   }
 }
 
 export async function Footer() {
-  const t = await getTranslations('Footer')
+  const [t, tn] = await Promise.all([
+    getTranslations('Footer'),
+    getTranslations('Navigation')
+  ])
   const cfg = await getFooterConfig()
   const currentYear = new Date().getFullYear()
+
+  // Helper to translate label if it matches a key in Navigation
+  const getTranslatedLabel = (label: string) => {
+    const key = label.toLowerCase().trim()
+    
+    // Maps for common translations
+    if (key === 'home' || key === 'accueil') return tn('home')
+    if (key === 'about' || key === 'à propos' || key === 'a propos') return tn('about')
+    if (key === 'services' || key === 'our fleet' || key === 'nos flotte' || key === 'flotte' || key === 'fleet') return tn('services')
+    if (key === 'contact') return tn('contact')
+    
+    return label
+  }
 
   const socials = [
     { key: 'facebook',  icon: <Globe  className="h-5 w-5" />, label: 'Facebook' },
@@ -47,7 +72,7 @@ export async function Footer() {
     (l: any) => l.label && l.href
   )
 
-  const hasLeft   = cfg.logoUrl || cfg.description || socials.length > 0
+  const hasLeft   = !!(cfg.logoUrl || cfg.description || socials.length > 0)
   const hasLinks  = quickLinks.length > 0
   const hasContact = contacts.length > 0
 
@@ -109,12 +134,12 @@ export async function Footer() {
               <ul className="space-y-3">
                 {quickLinks.map((link, i) => (
                   <li key={i}>
-                    <a
-                      href={link.href}
+                    <Link
+                      href={link.href as any}
                       className="text-muted-foreground hover:text-foreground transition-all text-[11px] font-bold uppercase tracking-widest hover:translate-x-1 inline-block"
                     >
-                      {link.label}
-                    </a>
+                      {getTranslatedLabel(link.label)}
+                    </Link>
                   </li>
                 ))}
               </ul>
