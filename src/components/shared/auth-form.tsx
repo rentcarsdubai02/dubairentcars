@@ -33,48 +33,48 @@ export function AuthForm({ type }: AuthFormProps) {
     try {
       if (type === 'login') {
         const res = await signIn('credentials', {
-           redirect: false,
-           email: email.toLowerCase(),
-           password
+          redirect: false,
+          email: email.toLowerCase(),
+          password
         })
 
         if (res?.error) {
-           setError(res.error)
+          setError(res.error)
         } else {
-           router.push('/dashboard')
-           router.refresh()
+          router.push('/dashboard')
+          router.refresh()
         }
       } else {
         const res = await fetch('/api/auth/register', {
-           method: 'POST',
-           headers: { 'Content-Type': 'application/json' },
-           body: JSON.stringify({
-              firstName,
-              lastName,
-              email: email.toLowerCase(),
-              password,
-              phone
-           })
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email: email.toLowerCase(),
+            password,
+            phone
+          })
         })
 
         const data = await res.json()
 
         if (!res.ok) {
-           setError(data.message || 'Signup failed')
+          setError(data.message || 'Signup failed')
         } else {
-           // On success, automatically sign in or redirect to login
-           const signinRes = await signIn('credentials', {
-              redirect: false,
-              email: email.toLowerCase(),
-              password
-           })
-           
-           if (!signinRes?.error) {
-              router.push('/dashboard')
-              router.refresh()
-           } else {
-              router.push('/login')
-           }
+          // On success, automatically sign in or redirect to login
+          const signinRes = await signIn('credentials', {
+            redirect: false,
+            email: email.toLowerCase(),
+            password
+          })
+
+          if (!signinRes?.error) {
+            router.push('/dashboard')
+            router.refresh()
+          } else {
+            router.push('/login')
+          }
         }
       }
     } catch (err: any) {
@@ -114,11 +114,11 @@ export function AuthForm({ type }: AuthFormProps) {
                     <Label className="text-xs font-bold text-muted-foreground ml-1" htmlFor="firstName">
                       {t('firstName')}
                     </Label>
-                    <Input 
-                      id="firstName" 
-                      placeholder="Alpha" 
-                      required 
-                      value={firstName} 
+                    <Input
+                      id="firstName"
+                      placeholder="Alpha"
+                      required
+                      value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
                       className="bg-white/5 border-white/10 rounded-xl h-12 text-sm font-semibold text-foreground focus:border-primary/50 transition-all px-4"
                     />
@@ -127,11 +127,11 @@ export function AuthForm({ type }: AuthFormProps) {
                     <Label className="text-xs font-bold text-muted-foreground ml-1" htmlFor="lastName">
                       {t('lastName')}
                     </Label>
-                    <Input 
-                      id="lastName" 
-                      placeholder="Delta" 
-                      required 
-                      value={lastName} 
+                    <Input
+                      id="lastName"
+                      placeholder="Delta"
+                      required
+                      value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
                       className="bg-white/5 border-white/10 rounded-xl h-12 text-sm font-semibold text-foreground focus:border-primary/50 transition-all px-4"
                     />
@@ -139,10 +139,10 @@ export function AuthForm({ type }: AuthFormProps) {
                 </div>
                 <div className="space-y-2">
                   <Label className="text-xs font-bold text-muted-foreground ml-1" htmlFor="phone">{t('phone')}</Label>
-                  <Input 
-                    id="phone" 
-                    placeholder="+971..." 
-                    value={phone} 
+                  <Input
+                    id="phone"
+                    placeholder="+33..."
+                    value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="bg-white/5 border-white/10 rounded-xl h-12 text-sm font-semibold text-foreground focus:border-primary/50 transition-all px-4"
                   />
@@ -154,11 +154,11 @@ export function AuthForm({ type }: AuthFormProps) {
               <Label className="text-xs font-bold text-muted-foreground ml-1" htmlFor="email">
                 {t('email')}
               </Label>
-              <Input 
-                id="email" 
-                type="email" 
-                placeholder="driver@dubairentcars.com" 
-                required 
+              <Input
+                id="email"
+                type="email"
+                placeholder="driver@dubairentcars.com"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="bg-white/5 border-white/10 rounded-xl h-12 text-sm font-semibold text-foreground focus:border-primary/50 transition-all px-4"
@@ -169,11 +169,11 @@ export function AuthForm({ type }: AuthFormProps) {
               <Label className="text-xs font-bold text-muted-foreground ml-1" htmlFor="password">
                 {t('password')}
               </Label>
-              <Input 
-                id="password" 
-                type="password" 
-                placeholder="Secure code" 
-                required 
+              <Input
+                id="password"
+                type="password"
+                placeholder="Secure code"
+                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="bg-white/5 border-white/10 rounded-xl h-12 text-sm font-semibold text-foreground focus:border-primary/50 transition-all px-4"
@@ -189,28 +189,28 @@ export function AuthForm({ type }: AuthFormProps) {
           </form>
 
           <div className="mt-8 pt-8 border-t border-white/5 flex flex-col gap-2 items-center">
-             <div className="text-xs font-medium text-muted-foreground">
-               {type === 'login' ? t('noAccount') : t('hasAccount')}
-             </div>
-             <Link 
-                href={type === 'login' ? "/signup" : "/login"} 
-                className="text-sm font-black text-primary hover:text-white transition-all underline underline-offset-4"
-             >
-               {type === 'login' ? t('signUp') : t('signIn')}
-             </Link>
+            <div className="text-xs font-medium text-muted-foreground">
+              {type === 'login' ? t('noAccount') : t('hasAccount')}
+            </div>
+            <Link
+              href={type === 'login' ? "/signup" : "/login"}
+              className="text-sm font-black text-primary hover:text-white transition-all underline underline-offset-4"
+            >
+              {type === 'login' ? t('signUp') : t('signIn')}
+            </Link>
           </div>
         </div>
       </div>
 
       <div className="mt-8 flex justify-center gap-6 opacity-40">
-         <div className="flex items-center gap-2">
-            <ShieldCheck className="w-3 h-3" />
-            <span className="text-[10px] font-bold tracking-tight">{t('securityProtocol')}</span>
-         </div>
-         <div className="flex items-center gap-2">
-            <UserIcon className="w-3 h-3" />
-            <span className="text-[10px] font-bold tracking-tight">{t('encryptedAccess')}</span>
-         </div>
+        <div className="flex items-center gap-2">
+          <ShieldCheck className="w-3 h-3" />
+          <span className="text-[10px] font-bold tracking-tight">{t('securityProtocol')}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <UserIcon className="w-3 h-3" />
+          <span className="text-[10px] font-bold tracking-tight">{t('encryptedAccess')}</span>
+        </div>
       </div>
     </div>
   )

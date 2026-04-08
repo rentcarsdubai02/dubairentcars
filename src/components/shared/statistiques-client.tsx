@@ -249,7 +249,9 @@ export function StatistiquesClient({ initialBookings }: Props) {
                 </div>
                 <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Début:</span> <span className="font-black">{new Date(selected.startDate).toLocaleDateString('fr-FR')}</span></div>
                 <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Fin:</span> <span className="font-black">{new Date(selected.endDate).toLocaleDateString('fr-FR')}</span></div>
-                <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Lieu:</span> <span className="font-black">{selected.pickupLocation || 'Dubai Hub'}</span></div>
+                {selected.pickupLocation && selected.pickupLocation !== 'Dubai Hub' && (
+                  <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Lieu:</span> <span className="font-black">{selected.pickupLocation}</span></div>
+                )}
                 <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Total:</span> <span className="font-black text-primary">{selected.totalPrice} €</span></div>
               </div>
             </div>

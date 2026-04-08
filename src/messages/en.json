@@ -11,7 +11,7 @@
     "contact": "Contact",
     "login": "Login",
     "signup": "Signup",
-    "dashboard": "Telemetry",
+    "dashboard": "My Space",
     "admin": "Admin Hub",
     "adminUsers": "Users Management",
     "adminFleet": "Fleet Management",
@@ -61,7 +61,7 @@
     "save": "Deploy Unit",
     "cancelEdit": "Abort Modification",
     "stockStatus": "Inventory Status",
-    "maintenance": "Technical Support",
+    "maintenance": "Hidden",
     "unitIdentity": "Unit Identity",
     "performanceYear": "Deployment Year",
     "fleetStatus": "Status",
@@ -106,6 +106,7 @@
     "model": "MODEL"
   },
   "Rental": {
+    "pricePerDay": "Daily Rate",
     "rentNow": "RENTAL REQUEST",
     "bookTitle": "RENTAL REQUEST",
     "agencyName": "Dubai Rent Cars",
@@ -285,7 +286,13 @@
     "discountPlaceholder": "20",
     "inject": "Inject Promo into Matrix",
     "noRewards": "No rewards currently synthesized.",
-    "off": "OFF"
+    "off": "OFF",
+    "targetAudienceLabel": "Target Audience",
+    "targetAll": "All (Visitors & Clients)",
+    "targetBronze": "Bronze Rank",
+    "targetSilver": "Silver Rank",
+    "targetGold": "Gold Rank",
+    "targetElite": "Elite Rank"
   },
   "AdminFooter": {
     "badge": "Admin — Footer Manager",

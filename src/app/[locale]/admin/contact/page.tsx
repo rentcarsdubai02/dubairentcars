@@ -16,7 +16,7 @@ export default async function AdminContactPage({ params }: { params: Promise<{ l
   const t = await getTranslations('AdminContact')
   const session = await getServerSession(authOptions)
   const user = session?.user as any
-  if (!user || !['admin', 'super_admin'].includes(user.role)) {
+  if (!user || !['admin', 'super_admin', 'agent'].includes(user.role)) {
     redirect('/')
   }
 

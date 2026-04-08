@@ -32,8 +32,9 @@ export default async function AdminPromosPage({ params }: { params: Promise<{ lo
     'use server'
     const code = formData.get('code') as string
     const discount = parseInt(formData.get('discount') as string, 10)
+    const targetAudience = (formData.get('targetAudience') as string) || 'all'
     if (!code || isNaN(discount)) return
-    await addPromo({ code, discount })
+    await addPromo({ code, discount, targetAudience })
     revalidatePath('/[locale]/admin/promos')
   }
 
@@ -77,6 +78,16 @@ export default async function AdminPromosPage({ params }: { params: Promise<{ lo
                  <label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">{t('discountLabel')}</label>
                  <Input name="discount" type="number" min="1" max="100" required placeholder={t('discountPlaceholder')} className="bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6" />
               </div>
+              <div className="space-y-2">
+                 <label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">{t('targetAudienceLabel')}</label>
+                 <select name="targetAudience" className="w-full bg-white/5 border border-white/10 rounded-2xl h-16 font-bold text-sm px-6 outline-none appearance-none hover:border-accent/40 transition-all text-white">
+                    <option value="all" className="bg-card text-foreground">{t('targetAll')}</option>
+                    <option value="bronze" className="bg-card text-foreground">{t('targetBronze')}</option>
+                    <option value="silver" className="bg-card text-foreground">{t('targetSilver')}</option>
+                    <option value="gold" className="bg-card text-foreground">{t('targetGold')}</option>
+                    <option value="elite" className="bg-card text-foreground">{t('targetElite')}</option>
+                 </select>
+              </div>
               <Button type="submit" className="w-full h-20 rounded-[1.8rem] bg-white text-black hover:bg-accent hover:text-white font-black text-xs uppercase tracking-[0.4em] transition-all group shadow-2xl shadow-white/10">
                  {t('inject')} <ChevronRight className="w-5 h-5 ml-4 group-hover:translate-x-2 transition-transform" />
               </Button>
@@ -99,7 +110,12 @@ export default async function AdminPromosPage({ params }: { params: Promise<{ lo
                       </div>
                       <div>
                          <h4 className="text-lg md:text-xl font-black uppercase italic tracking-widest text-white">{promo.code}</h4>
-                         <p className="text-xs font-bold text-accent uppercase opacity-80 italic">-{promo.discount}% {t('off')}</p>
+                         <div className="flex items-center flex-wrap gap-2 mt-1">
+                            <span className="text-xs font-bold text-accent uppercase opacity-80 italic">-{promo.discount}% {t('off')}</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground bg-white/5 px-2 py-0.5 rounded border border-white/5">
+                               {promo.targetAudience === 'all' ? t('targetAll') : promo.targetAudience === 'bronze' ? t('targetBronze') : promo.targetAudience === 'silver' ? t('targetSilver') : promo.targetAudience === 'gold' ? t('targetGold') : promo.targetAudience === 'elite' ? t('targetElite') : t('targetAll')}
+                            </span>
+                         </div>
                       </div>
                    </div>
                    

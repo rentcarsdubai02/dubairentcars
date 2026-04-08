@@ -26,6 +26,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { updateProfile } from "@/actions/user-actions"
 import { signOut } from "next-auth/react"
+import { AdminWelcomeGuide } from "./admin-welcome-guide"
+import { AgentWelcomeGuide } from "./agent-welcome-guide"
 
 interface ClientDashboardProps {
    initialData: {
@@ -37,7 +39,7 @@ interface ClientDashboardProps {
 
 export function ClientDashboard({ initialData }: ClientDashboardProps) {
    const t = useTranslations('Dashboard')
-   const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'promos' | 'profile'>('overview')
+   const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'promos' | 'profile' | 'admin-guide' | 'agent-guide'>('overview')
    const [user, setUser] = useState(initialData.user)
    const [loading, setLoading] = useState(false)
    const [success, setSuccess] = useState(false)
@@ -122,6 +124,8 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
                      { id: 'history', l: t('history'), i: <Calendar className="w-4 h-4" /> },
                      { id: 'promos', l: t('promos'), i: <Ticket className="w-4 h-4" /> },
                      { id: 'profile', l: t('profile'), i: <Settings className="w-4 h-4" /> },
+                     ...(user.role === 'admin' || user.role === 'super_admin' ? [{ id: 'admin-guide', l: 'Guide Admin', i: <Info className="w-4 h-4" /> }] : []),
+                     ...(user.role === 'agent' ? [{ id: 'agent-guide', l: 'Guide Agent', i: <Info className="w-4 h-4" /> }] : []),
                   ].map((item) => (
                      <button
                         key={item.id}
@@ -201,6 +205,20 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
                </div>
             )}
 
+            {/* ADMIN GUIDE TAB */}
+            {activeTab === 'admin-guide' && (user.role === 'admin' || user.role === 'super_admin') && (
+               <div className="glass-panel p-10 rounded-[2.5rem] bg-card/60 border-white/10">
+                  <AdminWelcomeGuide />
+               </div>
+            )}
+
+            {/* AGENT GUIDE TAB */}
+            {activeTab === 'agent-guide' && user.role === 'agent' && (
+               <div className="glass-panel p-10 rounded-[2.5rem] bg-card/60 border-white/10">
+                  <AgentWelcomeGuide />
+               </div>
+            )}
+
             {/* HISTORY TAB */}
             {activeTab === 'history' && (
                <div className="glass-panel p-10 rounded-[2.5rem] bg-card/60 border-white/10">
@@ -261,7 +279,9 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
                                  <div className="text-[10px] font-black text-primary uppercase tracking-widest opacity-60">{t('logistics')}</div>
                                  <div><span className="text-muted-foreground text-xs font-bold w-16 inline-block">{t('start')}</span> <span className="font-black text-sm">{new Date(selectedBooking.startDate).toLocaleDateString()}</span></div>
                                  <div><span className="text-muted-foreground text-xs font-bold w-16 inline-block">{t('end')}</span> <span className="font-black text-sm">{new Date(selectedBooking.endDate).toLocaleDateString()}</span></div>
-                                 <div><span className="text-muted-foreground text-xs font-bold w-16 inline-block">{t('location')}</span> <span className="font-black text-sm">{selectedBooking.pickupLocation || 'Dubai Hub'}</span></div>
+                                 {selectedBooking.pickupLocation && selectedBooking.pickupLocation !== 'Dubai Hub' && (
+                                    <div><span className="text-muted-foreground text-xs font-bold w-16 inline-block">{t('location')}</span> <span className="font-black text-sm">{selectedBooking.pickupLocation}</span></div>
+                                 )}
                               </div>
 
                               <div className="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-4">
@@ -329,7 +349,7 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
                         </div>
                         <div className="space-y-4">
                            <Label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-2 italic">{t('phone')}</Label>
-                           <Input name="phone" defaultValue={user.phone} placeholder="+971 50 XXXXXX" className="bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6 hover:border-primary/40 transition-all outline-none focus:ring-0" />
+                           <Input name="phone" defaultValue={user.phone} placeholder="+33 50 XXXXXX" className="bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6 hover:border-primary/40 transition-all outline-none focus:ring-0" />
                         </div>
                         <div className="space-y-4">
                            <Label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-2 italic">{t('dob')}</Label>

@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useRouter } from 'next/navigation'
 
-export function Header() {
+export function Header({ logoUrl }: { logoUrl?: string }) {
   const t = useTranslations('Navigation')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -63,19 +63,19 @@ export function Header() {
     <header className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
       isMenuOpen
-        ? "py-4 bg-[#0a0a0a] border-b border-white/10 px-6 md:px-12"
+        ? "py-3 bg-[#0a0a0a] border-b border-white/10 px-6 md:px-12"
         : scrolled 
-          ? "py-4 bg-background/80 backdrop-blur-3xl border-b border-primary/20 shadow-[0_0_50px_rgba(0,0,0,0.5)] px-6 md:px-12" 
-          : "py-6 bg-background/40 backdrop-blur-md border-b border-white/5 px-6 md:px-12"
+          ? "py-2 bg-background/80 backdrop-blur-3xl border-b border-primary/20 shadow-[0_0_50px_rgba(0,0,0,0.5)] px-6 md:px-12" 
+          : "py-4 bg-background/40 backdrop-blur-md border-b border-white/5 px-6 md:px-12"
     )}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center group">
           <Image
-            src="/Logo dubai rent cars3.png"
+            src={logoUrl || "/Logo dubai rent cars3.png"}
             alt="Dubai Rent Cars Logo"
             width={160}
             height={60}
-            className="object-contain h-12 w-auto transition-opacity group-hover:opacity-80"
+            className="object-contain h-10 md:h-11 w-auto transition-opacity group-hover:opacity-80"
             priority
           />
         </Link>
@@ -101,10 +101,17 @@ export function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className={cn(
-                   "rounded-full h-10 w-10 p-0 hover:bg-white/10 ring-1",
-                   isOperator ? "ring-primary shadow-[0_0_10px_rgba(var(--primary),0.3)]" : "ring-white/10"
+                   "rounded-full h-11 w-11 md:h-14 md:w-14 p-0 transition-all border-none outline-none",
+                   isOperator 
+                      ? "bg-primary/15 ring-2 ring-primary/50 shadow-[0_0_30px_rgba(var(--primary),0.3)] hover:bg-primary/25" 
+                      : "bg-white/5 ring-1 ring-white/10 hover:bg-white/10"
                 )}>
-                  {isOperator ? <ShieldAlert className="h-4 w-4 text-primary" /> : <User className="h-4 w-4" />}
+                  <div className={cn(
+                    "flex items-center justify-center w-full h-full rounded-full",
+                    isOperator ? "bg-primary/10" : "bg-transparent"
+                  )}>
+                    {isOperator ? <ShieldAlert className="h-6 w-6 md:h-8 md:w-8 text-primary" /> : <User className="h-5 w-5 md:h-6 md:w-6" />}
+                  </div>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-64 mt-4 border border-white/5 shadow-2xl bg-card/80 backdrop-blur-2xl rounded-2xl">
@@ -117,28 +124,31 @@ export function Header() {
                 <DropdownMenuSeparator className="bg-white/5" />
                 
                 {isManagement && (
-                  <DropdownMenuItem asChild className="focus:bg-primary/20 p-3 mx-1 rounded-xl group">
-                    <Link href="/admin/users" className="cursor-pointer w-full text-sm font-bold flex items-center gap-2">
-                       <ShieldAlert className="w-4 h-4 text-primary" /> {t('admin')}
+                  <DropdownMenuItem asChild className="focus:bg-primary/30 bg-primary/10 border border-primary/20 p-4 mx-1 rounded-xl group mb-2">
+                    <Link href="/admin/users" className="cursor-pointer w-full text-base font-black uppercase tracking-widest text-primary flex items-center gap-4">
+                       <ShieldAlert className="w-7 h-7" /> {t('admin')}
                     </Link>
                   </DropdownMenuItem>
                 )}
 
                 {!isManagement && isOperator && (
-                  <DropdownMenuItem asChild className="focus:bg-primary/20 p-3 mx-1 rounded-xl group">
-                    <Link href="/admin/fleet" className="cursor-pointer w-full text-sm font-bold flex items-center gap-2">
-                       <Car className="w-4 h-4 text-primary" /> {t('admin')}
+                  <DropdownMenuItem asChild className="focus:bg-primary/30 bg-primary/10 border border-primary/20 p-4 mx-1 rounded-xl group mb-2">
+                    <Link href="/admin/fleet" className="cursor-pointer w-full text-base font-black uppercase tracking-widest text-primary flex items-center gap-4">
+                       <ShieldAlert className="w-7 h-7" /> {t('admin')}
                     </Link>
                   </DropdownMenuItem>
                 )}
 
-
-                <DropdownMenuItem asChild className="focus:bg-primary/20 p-3 mx-1 rounded-xl">
-                  <Link href="/dashboard" className="cursor-pointer w-full text-sm font-semibold">{t('dashboard')}</Link>
+                <DropdownMenuItem asChild className="focus:bg-white/10 hover:bg-white/5 p-4 mx-1 rounded-xl mb-2 transition-colors">
+                  <Link href="/dashboard" className="cursor-pointer w-full text-xs md:text-sm font-bold uppercase tracking-widest flex items-center gap-3">
+                     <BarChart3 className="w-4 h-4 text-muted-foreground" /> {t('dashboard')}
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-white/5" />
-                <DropdownMenuItem onClick={handleSignOut} className="text-accent focus:bg-accent/10 cursor-pointer p-3 mx-1 rounded-xl text-sm font-semibold">
-                  {t('signOut')}
+                
+                <DropdownMenuSeparator className="bg-white/5 my-2" />
+                
+                <DropdownMenuItem onClick={handleSignOut} className="text-red-400 focus:bg-red-500/20 bg-red-500/10 border border-red-500/10 cursor-pointer p-4 mx-1 rounded-xl text-xs md:text-sm font-bold uppercase tracking-widest flex items-center gap-3 mt-2 transition-colors">
+                  <LogOut className="w-4 h-4" /> {t('signOut')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -188,7 +198,7 @@ export function Header() {
         {/* Drawer Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
           <Link href="/" onClick={() => setIsMenuOpen(false)}>
-            <Image src="/Logo dubai rent cars3.png" alt="Dubai Rent Cars" width={120} height={45} className="object-contain h-10 w-auto" />
+            <Image src={logoUrl || "/Logo dubai rent cars3.png"} alt="Dubai Rent Cars" width={120} height={45} className="object-contain h-10 w-auto" />
           </Link>
           <button className="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors" onClick={() => setIsMenuOpen(false)}>
             <X className="h-5 w-5" />
@@ -220,9 +230,9 @@ export function Header() {
               <Link
                 href={isManagement ? "/admin/users" : "/admin/fleet"}
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-4 px-4 py-4 rounded-2xl text-sm font-black uppercase tracking-widest text-primary bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-all duration-300 mt-2"
+                className="flex items-center gap-4 px-4 py-5 rounded-2xl text-base font-black uppercase tracking-widest text-primary bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-all duration-300 mt-4"
               >
-                <ShieldAlert className="w-5 h-5" />
+                <ShieldAlert className="w-8 h-8" />
                 {t('admin')}
               </Link>
             )}

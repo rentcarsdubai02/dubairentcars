@@ -11,7 +11,7 @@
     "contact": "اتصل بنا",
     "login": "تسجيل الدخول",
     "signup": "إنشاء حساب",
-    "dashboard": "تتبع البيانات",
+    "dashboard": "مساحتي",
     "admin": "مركز الإدارة",
     "adminUsers": "إدارة المستخدمين",
     "adminFleet": "إدارة الأسطول",
@@ -61,7 +61,7 @@
     "save": "نشر الوحدة",
     "cancelEdit": "إلغاء التعديل",
     "stockStatus": "حالة المخزون",
-    "maintenance": "الدعم الفني",
+    "maintenance": "مخفي",
     "unitIdentity": "هوية الوحدة",
     "performanceYear": "سنة النشر",
     "fleetStatus": "الحالة",
@@ -106,6 +106,7 @@
     "model": "طراز"
   },
   "Rental": {
+    "pricePerDay": "التسعيرة اليومية",
     "rentNow": "طلب تأجير",
     "bookTitle": "طلب تأجير",
     "agencyName": "دبي لتأجير السيارات",
@@ -285,7 +286,13 @@
     "discountPlaceholder": "20",
     "inject": "إضافة العرض",
     "noRewards": "لا توجد مكافآت مسجلة حالياً.",
-    "off": "خصم"
+    "off": "خصم",
+    "targetAudienceLabel": "الجمهور المستهدف",
+    "targetAll": "الكل (زوار وعملاء)",
+    "targetBronze": "رتبة برونزية",
+    "targetSilver": "رتبة فضية",
+    "targetGold": "رتبة ذهبية",
+    "targetElite": "رتبة النخبة"
   },
   "AdminFooter": {
     "badge": "المشرف — إدارة التذييل",

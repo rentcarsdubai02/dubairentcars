@@ -5,12 +5,14 @@ import {
    Settings2,
    Car,
    PenLine,
-   X
+   X,
+   Eye,
+   EyeOff
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import connectToDatabase from "@/lib/mongodb"
 import VehicleV2 from "@/models/Vehicle"
-import { deleteVehicle } from "@/actions/vehicle-actions"
+import { deleteVehicle, updateVehicleStatus } from "@/actions/vehicle-actions"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth-options"
 import { FleetForm } from "@/components/shared/fleet-form"
@@ -67,7 +69,7 @@ export default async function AdminFleetPage({
                   <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-8">
                      {[
                         { l: t('stockStatus'), v: plainVehicles.length, i: <Car className="w-5 h-5" />, c: "text-primary" },
-                        { l: t('maintenance'), v: plainVehicles.filter((v: any) => v.status === 'maintenance').length, i: <Settings2 className="w-5 h-5" />, c: "text-accent" },
+                        { l: t('maintenance'), v: plainVehicles.filter((v: any) => v.status === 'inactive').length, i: <EyeOff className="w-5 h-5" />, c: "text-accent" },
                      ].map((stat, i) => (
                         <div key={i} className="flex items-center gap-6">
                            <div className={`${stat.c} p-3 bg-white/5 rounded-2xl`}>
@@ -97,7 +99,6 @@ export default async function AdminFleetPage({
                         <thead>
                            <tr className="bg-white/5 border-b border-white/5">
                               <th className="p-4 md:p-6 text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">{t('unitIdentity')}</th>
-                              <th className="hidden md:table-cell p-6 text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">{t('performanceYear')}</th>
                               <th className="p-4 md:p-6 text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">{t('fleetStatus')}</th>
                               <th className="p-4 md:p-6 text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground text-right">{t('actions')}</th>
                            </tr>
@@ -116,15 +117,21 @@ export default async function AdminFleetPage({
                                        </div>
                                     </div>
                                  </td>
-                                 <td className="hidden md:table-cell p-6">
-                                    <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">{v.modelYear}</div>
-                                 </td>
                                  <td className="p-4 md:p-6">
-                                    <div className="flex items-center gap-2 text-[10px] font-bold text-muted-foreground">
-                                       <Activity className="w-3 h-3 text-primary animate-pulse" /> {v.status}
+                                    <div className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest ${v.status === 'active' ? 'text-green-500' : 'text-muted-foreground'}`}>
+                                       <Activity className={`w-3 h-3 ${v.status === 'active' ? 'text-green-500 animate-pulse' : 'opacity-40'}`} /> {v.status}
                                     </div>
                                  </td>
                                  <td className="p-6 text-right space-x-2">
+                                    <form action={async () => {
+                                       'use server'
+                                       await updateVehicleStatus(v._id, v.status === 'active' ? 'inactive' : 'active')
+                                    }} className="inline">
+                                       <Button type="submit" variant="ghost" size="sm" title="Toggle Visibility" className={`w-10 h-10 rounded-xl transition-all p-0 ${v.status === 'active' ? 'text-green-400 hover:bg-green-500/20 hover:text-green-300' : 'text-muted-foreground opacity-60 hover:bg-white/10 hover:text-white hover:opacity-100'}`}>
+                                          {v.status === 'active' ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                                       </Button>
+                                    </form>
+
                                     <Link href={`/admin/fleet?editId=${v._id}`} className="inline">
                                        <Button variant="ghost" size="sm" className="w-10 h-10 rounded-xl hover:bg-primary/10 hover:text-primary transition-all p-0">
                                           <PenLine className="w-4 h-4" />

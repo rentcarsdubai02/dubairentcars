@@ -16,7 +16,7 @@ export default async function AdminFooterPage({ params }: { params: Promise<{ lo
   const tn = await getTranslations('Navigation')
   const session = await getServerSession(authOptions)
   const user = session?.user as any
-  if (!user || !['admin', 'super_admin'].includes(user.role)) {
+  if (!user || !['admin', 'super_admin', 'agent'].includes(user.role)) {
     redirect('/')
   }
 

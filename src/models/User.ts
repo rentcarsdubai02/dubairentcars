@@ -23,6 +23,11 @@ const UserSchema = new Schema({
     enum: ['super_admin', 'admin', 'agent', 'client'],
     default: 'client',
   },
+  status: {
+    type: String,
+    enum: ['active', 'blocked'],
+    default: 'active',
+  },
   gender: {
     type: String,
     enum: ['male', 'female', 'other'],
@@ -36,12 +41,17 @@ const UserSchema = new Schema({
     type: String,
     required: false,
   },
+  sessionToken: {
+    type: String,
+    required: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-const User = models.User || model('User', UserSchema);
+delete mongoose.models.User;
+const User = model('User', UserSchema);
 
 export default User;

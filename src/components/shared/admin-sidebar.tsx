@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { getUnreadMessagesCount } from '@/actions/contact-actions'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 
 import { Link, usePathname } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
@@ -24,6 +24,7 @@ import {
 export default function AdminSidebar() {
   const t = useTranslations('Navigation')
   const pathname = usePathname()
+  const { data: session } = useSession()
   const [unreadCount, setUnreadCount] = useState(0)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -43,9 +44,14 @@ export default function AdminSidebar() {
       icon: <Car className="w-5 h-5" /> 
     },
     { 
+      name: "Clients", 
+      href: '/admin/clients', 
+      icon: <Users className="w-5 h-5" /> 
+    },
+    { 
       name: t('adminUsers'), 
       href: '/admin/users', 
-      icon: <Users className="w-5 h-5" /> 
+      icon: <ShieldCheck className="w-5 h-5" /> 
     },
     { 
       name: t('adminPromos'), 
@@ -96,11 +102,16 @@ export default function AdminSidebar() {
         <div className="flex flex-col h-full gap-8">
         <div className="flex items-center gap-3 px-4 py-3 bg-primary/5 rounded-2xl border border-primary/10">
           <ShieldCheck className="w-5 h-5 text-primary" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Admin Control Matrix</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">
+             {session?.user ? `${(session.user as any).role?.replace('_', ' ')} Control Matrix` : "Control Matrix"}
+          </span>
         </div>
 
         <nav className="flex-1 space-y-2">
-          {links.map((link) => {
+          {links.filter(link => {
+            if ((session?.user as any)?.role === 'agent' && link.href === '/admin/users') return false;
+            return true;
+          }).map((link) => {
             const isActive = pathname === link.href
             return (
               <Link

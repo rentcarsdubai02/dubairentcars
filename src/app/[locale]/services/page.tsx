@@ -96,27 +96,16 @@ export default async function ServicesPage({ params, searchParams }: { params: P
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5">
-                        <Zap className="w-4 h-4 text-primary" />
-                        <div>
-                          <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-40">{t('kmIncluded')}</div>
-                          <div className="text-xs font-bold">{car.kilometersIncluded} Km</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5">
-                        <Gauge className="w-4 h-4 text-accent" />
-                        <div>
-                          <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-40">{t('extraKmFee')}</div>
-                          <div className="text-xs font-bold">{car.extraPricePerKm} €</div>
-                        </div>
-                      </div>
-                    </div>
+
 
                     <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                      <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">
-                        <MapPin className="w-3 h-3" /> {car.location || 'Dubai Hub'}
-                      </div>
+                      {car.location && car.location !== 'Dubai Hub' ? (
+                        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">
+                          <MapPin className="w-3 h-3" /> {car.location}
+                        </div>
+                      ) : (
+                        <div />
+                      )}
                       <Button variant="ghost" className="text-xs font-black uppercase tracking-widest text-primary gap-2 group-hover:translate-x-2 transition-transform">
                         {t('rentNow')} <ArrowRight className="w-4 h-4" />
                       </Button>

@@ -23,7 +23,7 @@ export default async function AdminLocationsPage({ params }: { params: Promise<{
   setRequestLocale(locale)
   const t = await getTranslations('AdminLocations')
   const session = await getServerSession(authOptions)
-  if (!session || (session.user as any).role !== 'super_admin' && (session.user as any).role !== 'admin') {
+  if (!session || !['super_admin', 'admin', 'agent'].includes((session.user as any).role)) {
     redirect('/')
   }
 

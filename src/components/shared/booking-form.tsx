@@ -162,7 +162,7 @@ export function BookingForm({ vehicle, locations, hasActivePromos = false, user,
 
       doc.setFontSize(14); doc.setFont('helvetica', 'bold'); doc.text(t('vehicleConfig').toUpperCase(), 20, 110)
       doc.setFontSize(11); doc.setFont('helvetica', 'normal'); doc.text(`${vehicle.brand} ${vehicle.name}`, 25, 120)
-      doc.text(`${t('kmIncluded')}: ${vehicle.kilometersIncluded} Km`, 25, 128); 
+      doc.text(`${t('kmIncluded')}: ${vehicle.kilometersIncluded} Km`, 25, 128);
       doc.text(`${t('extraKmFee')}: ${vehicle.extraPricePerKm} €`, 25, 136)
       doc.text(`${t('deposit')}: ${vehicle.deposit} €`, 25, 144)
       doc.text(`${t('modelYearLabel')}: ${vehicle.modelYear}`, 25, 152)
@@ -339,7 +339,7 @@ export function BookingForm({ vehicle, locations, hasActivePromos = false, user,
                            required
                            defaultValue={user?.phone || ''}
                            className="bg-white/5 border-white/10 rounded-xl h-11 font-bold text-xs px-4"
-                           placeholder="+971 XX XXXXXX"
+                           placeholder="+33 XX XXXXXX"
                         />
                      </div>
                      <div className="space-y-1">

@@ -14,6 +14,11 @@ const PromoCodeSchema = new Schema({
     type: Boolean,
     default: true
   },
+  targetAudience: {
+    type: String,
+    enum: ['all', 'bronze', 'silver', 'gold', 'elite'],
+    default: 'all'
+  },
   expiryDate: {
     type: Date,
     required: false

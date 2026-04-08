@@ -4,6 +4,7 @@ import connectToDatabase from '@/lib/mongodb'
 import User from '@/models/User'
 import Booking from '@/models/Booking'
 import PromoCode from '@/models/PromoCode'
+import VehicleV2 from '@/models/Vehicle'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { revalidatePath } from 'next/cache'
@@ -53,6 +54,7 @@ export async function getClientDashboardData() {
     await connectToDatabase()
     const userId = (session.user as any).id
     
+    const _v = VehicleV2;
     const [bookings, promos, user] = await Promise.all([
       Booking.find({ userId }).sort({ createdAt: -1 }).populate('vehicleId'),
       PromoCode.find({ isActive: true }).sort({ createdAt: -1 }),
@@ -68,4 +70,39 @@ export async function getClientDashboardData() {
   } catch (err: any) {
     return { success: false, error: err.message }
   }
+}
+
+export async function getAgentClients() {
+  const session = await getServerSession(authOptions)
+  if (!session || !['super_admin', 'admin', 'agent'].includes((session.user as any).role)) {
+    throw new Error('Unauthorized Access')
+  }
+
+  await connectToDatabase()
+  const clients = await User.find({ role: 'client' }).sort({ createdAt: -1 }).lean()
+  return JSON.parse(JSON.stringify(clients))
+}
+
+export async function blockClient(clientId: string, block: boolean) {
+  const session = await getServerSession(authOptions)
+  if (!session || !['super_admin', 'admin', 'agent'].includes((session.user as any).role)) {
+    throw new Error('Unauthorized Access')
+  }
+
+  await connectToDatabase()
+  await User.findByIdAndUpdate(clientId, { status: block ? 'blocked' : 'active' })
+  revalidatePath('/[locale]/admin/clients')
+  return { success: true }
+}
+
+export async function deleteClient(clientId: string) {
+  const session = await getServerSession(authOptions)
+  if (!session || !['super_admin', 'admin', 'agent'].includes((session.user as any).role)) {
+    throw new Error('Unauthorized Access')
+  }
+
+  await connectToDatabase()
+  await User.findByIdAndDelete(clientId)
+  revalidatePath('/[locale]/admin/clients')
+  return { success: true }
 }

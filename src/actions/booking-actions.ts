@@ -48,6 +48,7 @@ export async function createBooking(formData: {
 
 export async function getBookingById(id: string) {
    await connectToDatabase();
+   const _v = VehicleV2;
    const booking = await Booking.findById(id).populate('vehicleId');
    return JSON.parse(JSON.stringify(booking));
 }

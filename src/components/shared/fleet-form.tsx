@@ -143,7 +143,7 @@ export function FleetForm({ initialData }: FleetFormProps) {
               <div className="grid grid-cols-2 gap-4">
                  <div className="space-y-1.5">
                     <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">{t('kilometersIncluded')}</Label>
-                    <Input name="kilometersIncluded" type="number" defaultValue={initialData?.kilometersIncluded || 250} required className="bg-white/5 border-white/10 rounded-2xl h-14 font-bold text-sm px-6" placeholder="250" />
+                    <Input name="kilometersIncluded" type="number" defaultValue={initialData?.kilometersIncluded || 150} required className="bg-white/5 border-white/10 rounded-2xl h-14 font-bold text-sm px-6" placeholder="150" />
                  </div>
                  <div className="space-y-1.5">
                     <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">{t('extraPrice')}</Label>

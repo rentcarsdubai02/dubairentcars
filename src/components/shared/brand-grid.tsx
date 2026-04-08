@@ -17,7 +17,7 @@ const BRANDS = [
   { name: "Lamborghini", slug: "lamborghini" },
   { name: "Bugatti", slug: "bugatti" },
   { name: "Maserati", slug: "maserati" },
-  { name: "Land Rover", overrideUrl: "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 50'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-weight='900' font-size='38' letter-spacing='0.15em' fill='black'%3ELAND ROVER%3C/text%3E%3C/svg%3E" },
+  { name: "Land Rover", overrideUrl: "https://www.carlogos.org/car-logos/land-rover-logo.png" },
   { name: "MINI JOHN", overrideUrl: "https://www.carlogos.org/logo/Mini-logo.png" },
   { name: "MCLAREN", overrideUrl: "https://www.carlogos.org/logo/McLaren-logo.png" },
   { name: "Other", isOther: true }

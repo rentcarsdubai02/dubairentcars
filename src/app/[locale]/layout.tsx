@@ -7,6 +7,8 @@ import {Inter} from 'next/font/google';
 import {Header} from "@/components/shared/header";
 import {Footer} from "@/components/shared/footer";
 import {AuthProvider} from "@/components/providers/session-provider";
+import connectToDatabase from '@/lib/mongodb';
+import FooterConfig from '@/models/FooterConfig';
 
 const inter = Inter({subsets: ['latin']});
 
@@ -15,6 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale, namespace: 'Metadata' });
 
   return {
+    metadataBase: new URL('https://dubairentcars.vercel.app'),
     title: {
       template: `%s | ${t('siteName')}`,
       default: t('defaultTitle'),
@@ -66,13 +69,24 @@ export default async function LocaleLayout(
   // side is the easiest way to get started
   const messages = await getMessages();
 
+  let logoUrl = undefined;
+  try {
+    await connectToDatabase();
+    const config = await FooterConfig.findOne({ singleton: 'main' }).lean();
+    if (config?.logoUrl) {
+      logoUrl = config.logoUrl;
+    }
+  } catch (e) {
+    // silently fail and fallback to default
+  }
+
   return (
     <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'} className="scroll-smooth" data-scroll-behavior="smooth">
       <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased selection:bg-primary/20`}>
         <AuthProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <div className="relative flex min-h-screen flex-col">
-              <Header />
+              <Header logoUrl={logoUrl} />
               <main className="flex-1">
                 {children}
               </main>

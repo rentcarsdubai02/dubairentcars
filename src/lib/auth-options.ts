@@ -3,6 +3,7 @@ import connectToDatabase from "@/lib/mongodb";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 import { NextAuthOptions } from "next-auth";
+import { randomUUID } from "crypto";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -25,17 +26,30 @@ export const authOptions: NextAuthOptions = {
           throw new Error("No user found with this email");
         }
 
+        if (user.status === 'blocked') {
+          throw new Error("Your account has been suspended.");
+        }
+
+        if (!user.password) {
+          throw new Error("Incorrect password");
+        }
+
         const isValid = await bcrypt.compare(credentials.password, user.password);
 
         if (!isValid) {
           throw new Error("Incorrect password");
         }
 
+        const newSessionToken = randomUUID();
+        user.sessionToken = newSessionToken;
+        await user.save();
+
         return {
           id: user._id.toString(),
           email: user.email,
           name: `${user.firstName} ${user.lastName}`,
-          role: user.role
+          role: user.role,
+          sessionToken: newSessionToken
         };
       }
     })
@@ -45,10 +59,24 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.role = (user as any).role;
         token.id = user.id;
+        token.sessionToken = (user as any).sessionToken;
       }
+
+      if (token.id) {
+        await connectToDatabase();
+        const dbUser = await User.findById(token.id);
+        // Si le jeton stocké en BDD est différent de celui du JWT (nouvelle connexion ailleurs)
+        if (!dbUser || dbUser.status === 'blocked' || dbUser.sessionToken !== token.sessionToken) {
+          return {}; // Invalide le jeton silencieusement
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
+      if (!token.id) {
+        return { ...session, user: null as any };
+      }
       if (session.user) {
         (session.user as any).role = token.role;
         (session.user as any).id = token.id;

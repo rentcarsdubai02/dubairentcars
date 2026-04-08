@@ -22,12 +22,12 @@ const VehicleSchema = new Schema({
   deposit: { type: Number, default: 1000 },
   status: {
     type: String,
-    enum: ['active', 'maintenance', 'in-transit', 'rented'],
+    enum: ['active', 'inactive', 'maintenance', 'in-transit', 'rented'],
     default: 'active',
   },
   location: {
     type: String,
-    default: 'Dubai Hub',
+    required: false,
   },
   description: { type: String, required: false },
   createdBy: {

@@ -38,17 +38,17 @@ export function FooterManager() {
   const t = useTranslations('AdminFooter')
 
   const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
-    { id: 'logo',        label: t('tabLogo'),          icon: <ImageIcon className="w-4 h-4" /> },
-    { id: 'description', label: t('tabDesc'),   icon: <AlignLeft className="w-4 h-4" /> },
-    { id: 'social',      label: t('tabSocial'), icon: <Share2 className="w-4 h-4" /> },
-    { id: 'links',       label: t('tabLinks'), icon: <Link2 className="w-4 h-4" /> },
-    { id: 'contact',     label: t('tabContact'),       icon: <Phone className="w-4 h-4" /> },
+    { id: 'logo', label: t('tabLogo'), icon: <ImageIcon className="w-4 h-4" /> },
+    { id: 'description', label: t('tabDesc'), icon: <AlignLeft className="w-4 h-4" /> },
+    { id: 'social', label: t('tabSocial'), icon: <Share2 className="w-4 h-4" /> },
+    { id: 'links', label: t('tabLinks'), icon: <Link2 className="w-4 h-4" /> },
+    { id: 'contact', label: t('tabContact'), icon: <Phone className="w-4 h-4" /> },
   ]
-  const [data, setData]       = useState<FooterConfigData>(empty)
-  const [tab, setTab]         = useState<Tab>('logo')
+  const [data, setData] = useState<FooterConfigData>(empty)
+  const [tab, setTab] = useState<Tab>('logo')
   const [loading, setLoading] = useState(true)
-  const [saving, setSaving]   = useState(false)
-  const [saved, setSaved]     = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
 
   useEffect(() => {
     fetch('/api/footer-config')
@@ -151,11 +151,10 @@ export function FooterManager() {
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all ${
-              tab === t.id
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all ${tab === t.id
                 ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
                 : 'bg-white/5 text-muted-foreground hover:bg-white/10'
-            }`}
+              }`}
           >
             {t.icon} {t.label}
           </button>
@@ -171,13 +170,13 @@ export function FooterManager() {
             <p className="text-xs text-muted-foreground opacity-60">
               {t('logoHelp')}
             </p>
-            
+
             <div className="space-y-4">
               <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 flex items-center gap-2">
                 <ImageIcon className="w-3.5 h-3.5" /> {t('logoLabel')}
               </Label>
-              
-              <CldUploadWidget 
+
+              <CldUploadWidget
                 uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "ml_default"}
                 onSuccess={(result: any) => {
                   if (result.event === 'success') {
@@ -191,8 +190,8 @@ export function FooterManager() {
                 }}
               >
                 {({ open }) => (
-                  <Button 
-                    type="button" 
+                  <Button
+                    type="button"
                     onClick={() => open()}
                     className="w-full h-40 rounded-3xl border-2 border-dashed border-white/10 bg-white/5 hover:bg-primary/10 hover:border-primary/40 transition-all flex flex-col items-center justify-center gap-4 group"
                   >
@@ -205,13 +204,13 @@ export function FooterManager() {
                           className="max-h-24 object-contain"
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/logo:opacity-100 flex items-center justify-center rounded-xl transition-opacity">
-                           <ImageIcon className="w-6 h-6 text-white" />
+                          <ImageIcon className="w-6 h-6 text-white" />
                         </div>
                       </div>
                     ) : (
                       <>
                         <div className="bg-primary/20 p-4 rounded-full group-hover:scale-110 transition-transform">
-                           <Plus className="w-6 h-6 text-primary" />
+                          <Plus className="w-6 h-6 text-primary" />
                         </div>
                         <div className="text-center">
                           <span className="text-xs font-black uppercase tracking-widest text-primary">{t('uploadFile')}</span>
@@ -225,12 +224,12 @@ export function FooterManager() {
 
               {data.logoUrl && (
                 <div className="flex justify-center">
-                   <button 
-                     onClick={() => set('logoUrl', '')} 
-                     className="text-[10px] font-black uppercase tracking-widest text-red-500 hover:underline"
-                   >
-                     {t('removeLogo')}
-                   </button>
+                  <button
+                    onClick={() => set('logoUrl', '')}
+                    className="text-[10px] font-black uppercase tracking-widest text-red-500 hover:underline"
+                  >
+                    {t('removeLogo')}
+                  </button>
                 </div>
               )}
             </div>
@@ -312,10 +311,10 @@ export function FooterManager() {
             {field(t('contactAddress'), 'address', <MapPin className="w-3.5 h-3.5" />, 'Dubai Marina, UAE')}
             {field(t('contactMap'), 'mapUrl', <Globe className="w-3.5 h-3.5" />, 'https://maps.google.com/?q=...')}
             {field(t('contactEmail'), 'email', <Mail className="w-3.5 h-3.5" />, 'contact@dubairentcars.com', 'email')}
-            {field(t('contactPhone'), 'phone', <Phone className="w-3.5 h-3.5" />, '+971 50 000 0000')}
-            {field('WhatsApp', 'whatsapp', <MessageCircle className="w-3.5 h-3.5" />, '+971 50 000 0000')}
-            {field('IMO', 'imo', <MessageCircle className="w-3.5 h-3.5" />, '+971 50 000 0000')}
-            {field('Viber', 'viber', <Video className="w-3.5 h-3.5" />, '+971 50 000 0000')}
+            {field(t('contactPhone'), 'phone', <Phone className="w-3.5 h-3.5" />, '+33 50 000 0000')}
+            {field('WhatsApp', 'whatsapp', <MessageCircle className="w-3.5 h-3.5" />, '+33 50 000 0000')}
+            {field('IMO', 'imo', <MessageCircle className="w-3.5 h-3.5" />, '+33 50 000 0000')}
+            {field('Viber', 'viber', <Video className="w-3.5 h-3.5" />, '+33 50 000 0000')}
           </div>
         )}
       </div>

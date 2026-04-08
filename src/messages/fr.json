@@ -11,7 +11,7 @@
     "contact": "Contact",
     "login": "Connexion",
     "signup": "S'inscrire",
-    "dashboard": "Telemetry",
+    "dashboard": "Mon Espace",
     "admin": "Centre d'Expertise",
     "adminUsers": "Gestion des utilisateurs",
     "adminFleet": "Gestion de flotte",
@@ -61,7 +61,7 @@
     "save": "Valider Unité",
     "cancelEdit": "Annuler l'Édition",
     "stockStatus": "État du Stock",
-    "maintenance": "Maintenance",
+    "maintenance": "Masqué",
     "unitIdentity": "Identité de l'Unité",
     "performanceYear": "Année de Performance",
     "fleetStatus": "État",
@@ -106,6 +106,7 @@
     "model": "MODÈLE"
   },
   "Rental": {
+    "pricePerDay": "Tarif Journalier",
     "rentNow": "DEMANDE DE LOUER",
     "bookTitle": "DEMANDE DE LOUER",
     "agencyName": "Dubai Rent Cars",
@@ -165,7 +166,7 @@
     "activePromos": "Récompenses Actives",
     "rank": "Rang Plateforme",
     "latestUpdates": "Dernières Mises à Jour",
-    "welcome": "Bienvenue dans la Matrix dubai Rent Cars, Pilote. Vos données de télémétrie sont synchronisées.",
+    "welcome": "Bienvenue sur Dubai Rent Cars. Votre espace est maintenant synchronisé.",
     "sortedBy": "Trié par récence",
     "noMissions": "Aucun log de mission détecté.",
     "close": "Fermer le Dossier",
@@ -286,7 +287,13 @@
     "discountPlaceholder": "20",
     "inject": "Ajouter la Promo",
     "noRewards": "Aucune récompense générée pour le moment.",
-    "off": "DE RÉDUCTION"
+    "off": "DE RÉDUCTION",
+    "targetAudienceLabel": "Audience Cible",
+    "targetAll": "Tous (Visiteurs et Clients)",
+    "targetBronze": "Rang Bronze",
+    "targetSilver": "Rang Silver",
+    "targetGold": "Rang Gold",
+    "targetElite": "Rang Elite"
   },
   "AdminFooter": {
     "badge": "Admin — Gestion de Footer",
