@@ -5,7 +5,7 @@ import { Zap } from "lucide-react"
 const BRANDS = [
   "Rolls-Royce", "Bentley", "Mercedes", "BMW", 
   "Audi", "Lexus", "Porsche", "Ferrari", "Lamborghini", 
-  "Bugatti", "Maserati", "Range Rover", 
+  "Bugatti", "Maserati", "Land Rover", 
   "MINI JOHN", "MCLAREN"
 ]
 
