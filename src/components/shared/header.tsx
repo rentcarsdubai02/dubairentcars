@@ -117,8 +117,8 @@ export function Header({ logoUrl }: { logoUrl?: string }) {
               <DropdownMenuContent align="end" className="w-64 mt-4 border border-white/5 shadow-2xl bg-card/80 backdrop-blur-2xl rounded-2xl">
                 <DropdownMenuLabel className="font-normal opacity-70 p-4">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-xs font-bold leading-none truncate">{user.email}</p>
-                    <p className="text-[10px] uppercase font-black tracking-widest text-primary/60">{user.role || 'DRIVER'}</p>
+                    <p className="text-xs font-bold leading-none truncate">{user?.email}</p>
+                    <p className="text-[10px] uppercase font-black tracking-widest text-primary/60">{user?.role || 'DRIVER'}</p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-white/5" />

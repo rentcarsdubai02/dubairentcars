@@ -59,6 +59,8 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
 
    const rank = getRankInfo()
 
+   if (!user) return <div className="text-center py-20 uppercase font-black opacity-20 tracking-widest">No Profile Data Found</div>
+
    const handleCopy = (code: string) => {
       navigator.clipboard.writeText(code)
       setCopiedCode(code)
@@ -109,13 +111,13 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
                   <div className="relative mb-6">
                      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-primary to-accent p-1">
                         <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden">
-                           <div className="text-4xl font-black text-primary uppercase">{user.firstName?.[0] || 'D'}</div>
+                           <div className="text-4xl font-black text-primary uppercase">{user?.firstName?.[0] || 'D'}</div>
                         </div>
                      </div>
                      <div className="absolute bottom-1 right-1 w-6 h-6 bg-green-500 border-4 border-background rounded-full" />
                   </div>
-                  <h2 className="text-2xl font-black tracking-tight mb-1">{user.firstName} {user.lastName}</h2>
-                  <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] italic">{user.role || 'DRIVER'}</p>
+                  <h2 className="text-2xl font-black tracking-tight mb-1">{user?.firstName} {user?.lastName}</h2>
+                  <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] italic">{user?.role || 'DRIVER'}</p>
                </div>
 
                <div className="mt-10 space-y-2">
@@ -124,8 +126,8 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
                      { id: 'history', l: t('history'), i: <Calendar className="w-4 h-4" /> },
                      { id: 'promos', l: t('promos'), i: <Ticket className="w-4 h-4" /> },
                      { id: 'profile', l: t('profile'), i: <Settings className="w-4 h-4" /> },
-                     ...(user.role === 'admin' || user.role === 'super_admin' ? [{ id: 'admin-guide', l: 'Guide Admin', i: <Info className="w-4 h-4" /> }] : []),
-                     ...(user.role === 'agent' ? [{ id: 'agent-guide', l: 'Guide Agent', i: <Info className="w-4 h-4" /> }] : []),
+                     ...(user?.role === 'admin' || user?.role === 'super_admin' ? [{ id: 'admin-guide', l: 'Guide Admin', i: <Info className="w-4 h-4" /> }] : []),
+                     ...(user?.role === 'agent' ? [{ id: 'agent-guide', l: 'Guide Agent', i: <Info className="w-4 h-4" /> }] : []),
                   ].map((item) => (
                      <button
                         key={item.id}
@@ -206,14 +208,14 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
             )}
 
             {/* ADMIN GUIDE TAB */}
-            {activeTab === 'admin-guide' && (user.role === 'admin' || user.role === 'super_admin') && (
+            {activeTab === 'admin-guide' && (user?.role === 'admin' || user?.role === 'super_admin') && (
                <div className="glass-panel p-10 rounded-[2.5rem] bg-card/60 border-white/10">
                   <AdminWelcomeGuide />
                </div>
             )}
 
             {/* AGENT GUIDE TAB */}
-            {activeTab === 'agent-guide' && user.role === 'agent' && (
+            {activeTab === 'agent-guide' && user?.role === 'agent' && (
                <div className="glass-panel p-10 rounded-[2.5rem] bg-card/60 border-white/10">
                   <AgentWelcomeGuide />
                </div>
@@ -341,23 +343,23 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
                      <div className="grid md:grid-cols-2 gap-10">
                         <div className="space-y-4">
                            <Label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-2 italic">{t('firstName')}</Label>
-                           <Input name="firstName" defaultValue={user.firstName} className="bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6 hover:border-primary/40 transition-all outline-none focus:ring-0" />
+                           <Input name="firstName" defaultValue={user?.firstName} className="bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6 hover:border-primary/40 transition-all outline-none focus:ring-0" />
                         </div>
                         <div className="space-y-4">
                            <Label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-2 italic">{t('lastName')}</Label>
-                           <Input name="lastName" defaultValue={user.lastName} className="bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6 hover:border-primary/40 transition-all outline-none focus:ring-0" />
+                           <Input name="lastName" defaultValue={user?.lastName} className="bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6 hover:border-primary/40 transition-all outline-none focus:ring-0" />
                         </div>
                         <div className="space-y-4">
                            <Label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-2 italic">{t('phone')}</Label>
-                           <Input name="phone" defaultValue={user.phone} placeholder="+33 50 XXXXXX" className="bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6 hover:border-primary/40 transition-all outline-none focus:ring-0" />
+                           <Input name="phone" defaultValue={user?.phone} placeholder="+33 50 XXXXXX" className="bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6 hover:border-primary/40 transition-all outline-none focus:ring-0" />
                         </div>
                         <div className="space-y-4">
                            <Label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-2 italic">{t('dob')}</Label>
-                           <Input name="birthDate" type="date" defaultValue={user.birthDate ? new Date(user.birthDate).toISOString().split('T')[0] : ''} className="bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6 hover:border-primary/40 transition-all outline-none focus:ring-0" />
+                           <Input name="birthDate" type="date" defaultValue={user?.birthDate ? new Date(user.birthDate).toISOString().split('T')[0] : ''} className="bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6 hover:border-primary/40 transition-all outline-none focus:ring-0" />
                         </div>
                         <div className="space-y-4">
                            <Label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-2 italic">{t('gender')}</Label>
-                           <select name="gender" defaultValue={user.gender || 'male'} className="w-full bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6 outline-none appearance-none hover:border-primary/40 transition-all">
+                           <select name="gender" defaultValue={user?.gender || 'male'} className="w-full bg-white/5 border-white/10 rounded-2xl h-16 font-bold text-sm px-6 outline-none appearance-none hover:border-primary/40 transition-all">
                               <option value="male" className="bg-card text-foreground">{t('male')}</option>
                               <option value="female" className="bg-card text-foreground">{t('female')}</option>
                               <option value="other" className="bg-card text-foreground">{t('other')}</option>
@@ -394,7 +396,7 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
 
                   <div className="p-8 rounded-3xl bg-white/5 border border-white/5">
                      <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-40 mb-2 italic underline underline-offset-4 decoration-primary">{t('securityContext')}</div>
-                     <p className="text-xs font-semibold text-muted-foreground opacity-60">{t('digitalAddress')}: {user.email} {t('clearance')}</p>
+                     <p className="text-xs font-semibold text-muted-foreground opacity-60">{t('digitalAddress')}: {user?.email} {t('clearance')}</p>
                   </div>
                </div>
             )}
