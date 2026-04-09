@@ -1,8 +1,8 @@
 {
   "Metadata": {
     "siteName": "Dubai Rent Cars",
-    "defaultTitle": "Dubai Rent Cars | Location de Voiture de Luxe & SUV à Dubaï",
-    "defaultDescription": "Louez les meilleures voitures de luxe et SUV à Dubaï. Large flotte de Lamborghini, Ferrari, Rolls Royce et plus. Service VIP 24/7."
+    "defaultTitle": "Dubai Rent Cars | Location de Voiture de Luxe & SUV à Cannes",
+    "defaultDescription": "Louez les meilleures voitures de luxe et SUV à Cannes. Large flotte de Lamborghini, Ferrari, Rolls Royce et plus. Service VIP 24/7."
   },
   "Navigation": {
     "home": "Accueil",
@@ -84,7 +84,7 @@
   },
   "Services": {
     "title": "Catalogue de Flotte Premium",
-    "subtitle": "Vivez le summum de l'ingénierie automobile avec notre collection de supercars et de SUVs d'élite à Dubaï.",
+    "subtitle": "Vivez le summum de l'ingénierie automobile avec notre collection de supercars et de SUVs d'élite à Cannes.",
     "empty": "Flotte Hors Ligne",
     "noCars": "Aucun véhicule disponible pour le moment.",
     "kmIncluded": "Km Inclus",
@@ -225,12 +225,12 @@
     "viber": "Viber",
     "website": "Site Web",
     "allRightsReserved": "Tous droits réservés.",
-    "description": "Louez votre voiture à Dubaï facilement et profitez de chaque trajet en toute liberté. Service fiable, flotte variée et assistance 24/7."
+    "description": "Louez votre voiture à Cannes facilement et profitez de chaque trajet en toute liberté. Service fiable, flotte variée et assistance 24/7."
   },
   "Index": {
     "heroTitle1": "Pilotez Vôtre",
     "heroTitle2": "Bord Ultime",
-    "heroSubtitle": "Louez votre voiture à Dubaï facilement et profitez de chaque trajet en toute liberté. Service fiable, flotte variée et assistance 24/7.",
+    "heroSubtitle": "Louez votre voiture à Cannes facilement et profitez de chaque trajet en toute liberté. Service fiable, flotte variée et assistance 24/7.",
     "viewCollection": "Voir Collection",
     "theFleet": "La Flotte",
     "liveActive": "24/7 SUPPORT VIP"
@@ -248,7 +248,7 @@
     "societyDesc": "Une clientèle d’élite qui exige le meilleur et vit l’expérience du luxe automobile sans compromis.",
     "mechanical": "Intégrité Mécanique.",
     "engineering": "Fierté d'Ingénierie.",
-    "serviceMessage": "Louez votre voiture à Dubaï facilement et profitez de chaque trajet en toute liberté. Service fiable, flotte variée et assistance 24/7."
+    "serviceMessage": "Louez votre voiture à Cannes facilement et profitez de chaque trajet en toute liberté. Service fiable, flotte variée et assistance 24/7."
   },
   "AdminUsers": {
     "loggedAs": "Connecté en tant que :",
@@ -314,6 +314,9 @@
     "logoLabel": "Logo de l'agence",
     "altText": "Texte Alternatif (alt)",
     "descLabel": "Description du site",
+    "descLabelFr": "Description du site (Français)",
+    "descLabelEn": "Description du site (Anglais)",
+    "descLabelAr": "Description du site (Arabe)",
     "descPlaceholder": "Décrivez votre agence en quelques mots…",
     "noLinks": "Aucun lien rapide — cliquez sur Ajouter pour commencer.",
     "addLink": "Ajouter un lien",
@@ -332,13 +335,13 @@
     "badge": "Admin — Agences",
     "title1": "Nos",
     "title2": "Agences",
-    "subtitle": "Gérez vos points d'accès physiques à travers Dubaï. Configurez les lieux de prise en charge et de retour.",
+    "subtitle": "Gérez vos points d'accès physiques à travers Cannes. Configurez les lieux de prise en charge et de retour.",
     "activeHubs": "Agences Actives",
     "registerTitle": "Enregistrer une Nouvelle Agence",
     "pointNameLabel": "Nom de l'Agence",
-    "pointNamePlaceholder": "Centre Agence Dubaï (Principal)",
+    "pointNamePlaceholder": "Centre Agence Cannes (Principal)",
     "addressLabel": "Adresse Physique",
-    "addressPlaceholder": "Secteur 01, Cannes France Tower, UAE",
+    "addressPlaceholder": "Cannes",
     "submitBtn": "Ajouter l'Agence",
     "emptyList": "Aucune agence détectée dans vos secteurs.",
     "footerNote1": "Architecture Multi-Agences Active",

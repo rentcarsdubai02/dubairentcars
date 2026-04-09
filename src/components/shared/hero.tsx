@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { Car, Fuel, Gauge, Shield, Zap, Star, ChevronRight } from "lucide-react"
 import Image from 'next/image'
 
-export function Hero() {
+export function Hero({ dbSubtitle }: { dbSubtitle?: string }) {
   const t = useTranslations('Index')
   const { scrollY } = useScroll()
   const y1 = useTransform(scrollY, [0, 500], [0, 200])
@@ -65,9 +65,9 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="max-w-md text-lg md:text-xl text-muted-foreground/90 mt-8 mb-12 leading-relaxed font-medium"
+              className="max-w-md text-lg md:text-xl text-muted-foreground/90 mt-8 mb-12 leading-relaxed font-medium whitespace-pre-wrap"
             >
-               {t('heroSubtitle')}
+               {dbSubtitle || t('heroSubtitle')}
             </motion.p>
 
             <motion.div

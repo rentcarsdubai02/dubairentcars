@@ -14,7 +14,10 @@ const FooterConfigSchema = new Schema({
   logoAlt:     { type: String, default: '' },
 
   // Description
-  description: { type: String, default: '' },
+  description:   { type: String, default: '' }, // Legacy/Fallback
+  descriptionFr: { type: String, default: '' },
+  descriptionEn: { type: String, default: '' },
+  descriptionAr: { type: String, default: '' },
 
   // Social networks
   facebook:    { type: String, default: '' },

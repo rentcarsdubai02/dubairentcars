@@ -15,7 +15,11 @@ import {
 interface QuickLink { label: string; href: string }
 
 interface FooterConfigData {
-  logoUrl: string; logoAlt: string; description: string;
+  logoUrl: string; logoAlt: string;
+  description: string;
+  descriptionFr: string;
+  descriptionEn: string;
+  descriptionAr: string;
   facebook: string; instagram: string; twitter: string;
   tiktok: string; website: string; youtube: string; linkedin: string;
   quickLinks: QuickLink[];
@@ -24,7 +28,11 @@ interface FooterConfigData {
 }
 
 const empty: FooterConfigData = {
-  logoUrl: '', logoAlt: '', description: '',
+  logoUrl: '', logoAlt: '',
+  description: '',
+  descriptionFr: '',
+  descriptionEn: '',
+  descriptionAr: '',
   facebook: '', instagram: '', twitter: '',
   tiktok: '', website: '', youtube: '', linkedin: '',
   quickLinks: [],
@@ -76,13 +84,19 @@ export function FooterManager() {
   const save = async () => {
     setSaving(true)
     setSaved(false)
-    await fetch('/api/footer-config', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
+    try {
+      const res = await fetch('/api/footer-config', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (!res.ok) throw new Error('Failed to save')
+      setSaved(true)
+    } catch (error) {
+      console.error(error)
+      alert("Erreur de connexion à la base de données. Vérifiez votre configuration MongoDB Atlas (IP Whitelist).")
+    }
     setSaving(false)
-    setSaved(true)
     setTimeout(() => setSaved(false), 3000)
   }
 
@@ -238,17 +252,44 @@ export function FooterManager() {
 
         {/* DESCRIPTION */}
         {tab === 'description' && (
-          <div className="space-y-2">
-            <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 flex items-center gap-2">
-              <AlignLeft className="w-3.5 h-3.5" /> {t('descLabel')}
-            </Label>
-            <textarea
-              value={data.description}
-              onChange={e => set('description', e.target.value)}
-              placeholder={t('descPlaceholder')}
-              rows={5}
-              className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 font-semibold text-sm text-foreground placeholder:text-muted-foreground/40 outline-none resize-none focus:border-primary/40 transition-colors"
-            />
+          <div className="space-y-8">
+            <div className="space-y-3">
+              <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 flex items-center gap-2">
+                <AlignLeft className="w-3.5 h-3.5" /> {t('descLabelFr')}
+              </Label>
+              <textarea
+                value={data.descriptionFr}
+                onChange={e => set('descriptionFr', e.target.value)}
+                placeholder={t('descPlaceholder')}
+                rows={4}
+                className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 font-semibold text-sm text-foreground placeholder:text-muted-foreground/40 outline-none resize-none focus:border-primary/40 transition-colors"
+              />
+            </div>
+            <div className="space-y-3">
+              <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 flex items-center gap-2">
+                <AlignLeft className="w-3.5 h-3.5" /> {t('descLabelEn')}
+              </Label>
+              <textarea
+                value={data.descriptionEn}
+                onChange={e => set('descriptionEn', e.target.value)}
+                placeholder={t('descPlaceholder')}
+                rows={4}
+                className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 font-semibold text-sm text-foreground placeholder:text-muted-foreground/40 outline-none resize-none focus:border-primary/40 transition-colors"
+              />
+            </div>
+            <div className="space-y-3">
+              <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 flex items-center gap-2">
+                <AlignLeft className="w-3.5 h-3.5" /> {t('descLabelAr')}
+              </Label>
+              <textarea
+                value={data.descriptionAr}
+                onChange={e => set('descriptionAr', e.target.value)}
+                placeholder={t('descPlaceholder')}
+                rows={4}
+                dir="rtl"
+                className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 font-semibold text-sm text-foreground placeholder:text-muted-foreground/40 outline-none resize-none focus:border-primary/40 transition-colors"
+              />
+            </div>
           </div>
         )}
 

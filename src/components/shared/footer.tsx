@@ -28,7 +28,7 @@ async function getFooterConfig() {
   }
 }
 
-export async function Footer() {
+export async function Footer({ locale }: { locale?: string }) {
   const [t, tn] = await Promise.all([
     getTranslations('Footer'),
     getTranslations('Navigation')
@@ -72,7 +72,13 @@ export async function Footer() {
     (l: any) => l.label && l.href
   )
 
-  const hasLeft   = !!(cfg.logoUrl || cfg.description || socials.length > 0)
+  // Use localized description based on site locale
+  let localizedDescription = cfg.description; // fallback
+  if (locale === 'fr') localizedDescription = cfg.descriptionFr || cfg.description;
+  else if (locale === 'ar') localizedDescription = cfg.descriptionAr || cfg.description;
+  else localizedDescription = cfg.descriptionEn || cfg.description;
+
+  const hasLeft   = !!(cfg.logoUrl || localizedDescription || socials.length > 0)
   const hasLinks  = quickLinks.length > 0
   const hasContact = contacts.length > 0
 
@@ -101,8 +107,8 @@ export async function Footer() {
               </Link>
 
               {/* Description */}
-              <p className="text-muted-foreground max-w-sm text-sm font-medium leading-relaxed opacity-80">
-                {t('description')}
+              <p className="text-muted-foreground max-w-sm text-sm font-medium leading-relaxed opacity-80 whitespace-pre-wrap">
+                {localizedDescription}
               </p>
 
               {/* Social networks */}

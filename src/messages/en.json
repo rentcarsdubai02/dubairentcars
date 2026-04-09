@@ -84,7 +84,7 @@
   },
   "Services": {
     "title": "Premium Fleet Catalog",
-    "subtitle": "Experience the pinnacle of automotive engineering with our curated collection of supercars and elite SUVs in Dubai.",
+    "subtitle": "Experience the pinnacle of automotive engineering with our curated collection of supercars and elite SUVs in Cannes.",
     "empty": "Fleet Offline",
     "noCars": "No vehicles available at the moment.",
     "kmIncluded": "Km Included",
@@ -313,6 +313,9 @@
     "logoLabel": "Agency Logo",
     "altText": "Alternative Text (alt)",
     "descLabel": "Site Description",
+    "descLabelFr": "Site Description (French)",
+    "descLabelEn": "Site Description (English)",
+    "descLabelAr": "Site Description (Arabic)",
     "descPlaceholder": "Describe your agency in a few words...",
     "noLinks": "No quick links — click Add to start.",
     "addLink": "Add link",
