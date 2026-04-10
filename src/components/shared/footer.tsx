@@ -134,7 +134,7 @@ export async function Footer({ locale }: { locale?: string }) {
           {/* Quick Links */}
           {hasLinks && (
             <div className="lg:col-span-1 space-y-6">
-              <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary flex items-center gap-2">
+              <h4 className="text-sm font-black uppercase tracking-[0.3em] text-primary flex items-center gap-2">
                 <Link2 className="w-3.5 h-3.5" /> {t('quickLinks')}
               </h4>
               <ul className="space-y-3">
@@ -142,7 +142,7 @@ export async function Footer({ locale }: { locale?: string }) {
                   <li key={i}>
                     <Link
                       href={link.href as any}
-                      className="text-muted-foreground hover:text-foreground transition-all text-[11px] font-bold uppercase tracking-widest hover:translate-x-1 inline-block"
+                      className="text-muted-foreground hover:text-foreground transition-all text-sm font-bold uppercase tracking-widest hover:translate-x-1 inline-block"
                     >
                       {getTranslatedLabel(link.label)}
                     </Link>
@@ -155,16 +155,16 @@ export async function Footer({ locale }: { locale?: string }) {
           {/* Contact */}
           {hasContact && (
             <div className="lg:col-span-2 space-y-6">
-              <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary flex items-center gap-2">
+              <h4 className="text-sm font-black uppercase tracking-[0.3em] text-primary flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5" /> {t('contact')}
               </h4>
               <ul className="space-y-4">
                 {contacts.map(c => {
                   const content = (
-                    <span className="flex items-start gap-3 text-[11px] font-semibold text-muted-foreground leading-snug">
+                    <span className="flex items-start gap-3 text-sm font-semibold text-muted-foreground leading-snug">
                       <span className="text-primary mt-0.5 shrink-0">{c.icon}</span>
                       <span>
-                        <span className="text-[9px] font-black uppercase tracking-widest opacity-50 block">{c.label}</span>
+                        <span className="text-xs font-black uppercase tracking-widest opacity-50 block">{c.label}</span>
                         {cfg[c.key]}
                       </span>
                     </span>
