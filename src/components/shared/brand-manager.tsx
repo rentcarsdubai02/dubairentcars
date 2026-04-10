@@ -15,8 +15,10 @@ import {
   MoveUp,
   MoveDown,
   Loader2,
-  RefreshCw
+  RefreshCw,
+  Image as ImageIcon
 } from "lucide-react"
+import { CldUploadWidget } from 'next-cloudinary'
 
 export function BrandManager() {
   const t = useTranslations('BrandManager')
@@ -194,13 +196,44 @@ export function BrandManager() {
              </div>
              
              <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] opacity-50 ml-2">{t('slug')}</label>
+                <label className="text-[10px] font-black uppercase tracking-[0.3em] opacity-50 ml-2">{t('slug')} (Optionnel)</label>
                 <Input value={newBrand.slug} onChange={e => setNewBrand({...newBrand, slug: e.target.value})} placeholder="e.g. lamborghini" className="bg-white/5 border-white/10 h-16 rounded-[1.5rem] font-bold text-sm px-6" />
              </div>
 
              <div className="space-y-3">
                 <label className="text-[10px] font-black uppercase tracking-[0.3em] opacity-50 ml-2">{t('override')}</label>
-                <Input value={newBrand.overrideUrl} onChange={e => setNewBrand({...newBrand, overrideUrl: e.target.value})} placeholder="https://..." className="bg-white/5 border-white/10 h-16 rounded-[1.5rem] font-bold text-sm px-6" />
+                <CldUploadWidget
+                  uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "ml_default"}
+                  onSuccess={(result: any) => {
+                    if (result.event === 'success') {
+                      setNewBrand({ ...newBrand, overrideUrl: result.info.secure_url })
+                    }
+                  }}
+                  options={{
+                    multiple: false,
+                    maxFiles: 1,
+                    clientAllowedFormats: ["png", "jpeg", "webp", "svg"],
+                  }}
+                >
+                  {({ open }) => (
+                    <div 
+                      onClick={() => open()}
+                      className="w-full h-16 rounded-[1.5rem] border-2 border-dashed border-white/10 bg-white/5 hover:bg-primary/10 hover:border-primary/40 transition-all flex items-center justify-center gap-4 cursor-pointer group"
+                    >
+                      {newBrand.overrideUrl ? (
+                        <div className="flex items-center gap-3">
+                           <img src={newBrand.overrideUrl} alt="Logo Preview" className="h-8 object-contain brightness-0 invert" />
+                           <span className="text-[10px] font-black uppercase text-primary">Change Image</span>
+                        </div>
+                      ) : (
+                        <>
+                          <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                          <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">Import Image</span>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </CldUploadWidget>
              </div>
 
              <div className="md:col-span-2 flex items-center justify-between p-6 bg-white/5 rounded-[1.8rem] border border-white/5 hover:border-primary/20 transition-all cursor-pointer group" onClick={() => setNewBrand({...newBrand, isOther: !newBrand.isOther})}>
