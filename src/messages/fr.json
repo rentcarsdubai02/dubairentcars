@@ -18,8 +18,9 @@
     "adminLocations": "Nos Agences",
     "adminPromos": "Gestion Promo",
     "adminStats": "Statistiques",
-    "adminFooter": "Gestion de Footer",
-    "adminContact": "Gestion de Contact",
+    "adminFooter": "Gestion du Footer",
+    "adminContact": "Gestion Contacts",
+    "adminHome": "Gestion Accueil",
     "signOut": "Déconnexion"
   },
   "Auth": {
@@ -366,7 +367,27 @@
     "messagesSubtitle": "Communications réseau interceptées des utilisateurs.",
     "noMessages": "Aucun signal intercepté.",
     "sender": "EXPÉDITEUR :",
-    "deleteMessage": "Supprimer le Signal"
+    "deleteMessage": "Supprimer Signal"
+  },
+  "AdminHome": {
+    "badge": "Admin — Gestion de l'Accueil",
+    "title1": "Gestion",
+    "title2": "Accueil",
+    "subtitle": "Gérez le contenu dynamique de la page d'accueil et les logos partenaires."
+  },
+  "BrandManager": {
+    "title": "Elite Partners",
+    "subtitle": "Gérez l'affichage des logos constructeurs sur la grille d'accueil.",
+    "addBrand": "Ajouter Partenaire",
+    "name": "Nom de la Marque",
+    "slug": "Slug SimpleIcons",
+    "override": "URL Logo (Optionnel)",
+    "visible": "Visibilité",
+    "order": "Ordre de Priorité",
+    "actions": "Protocoles",
+    "isOther": "Afficher comme lien 'Autre'",
+    "save": "Déployer Partenaire",
+    "delete": "Supprimer Nœud"
   },
   "Contact": {
     "commInterface": "Interface de Communication",

@@ -69,6 +69,11 @@ export default function AdminSidebar() {
       icon: <LayoutTemplate className="w-5 h-5" /> 
     },
     { 
+      name: t('adminHome'), 
+      href: '/admin/home', 
+      icon: <LayoutTemplate className="w-5 h-5" /> 
+    },
+    { 
       name: t('adminContact'), 
       href: '/admin/contact', 
       icon: <MessageSquare className="w-5 h-5" /> 

@@ -20,6 +20,7 @@
     "adminStats": "Statistics",
     "adminFooter": "Footer Management",
     "adminContact": "Contact Management",
+    "adminHome": "Home Management",
     "signOut": "Sign Out"
   },
   "Auth": {
@@ -366,6 +367,26 @@
     "noMessages": "No signals intercepted.",
     "sender": "SENDER:",
     "deleteMessage": "Delete Signal"
+  },
+  "AdminHome": {
+    "badge": "Admin — Home Management",
+    "title1": "Home",
+    "title2": "Manager",
+    "subtitle": "Manage home page dynamic sections and partner logos."
+  },
+  "BrandManager": {
+    "title": "Elite Partners",
+    "subtitle": "Manage manufacturers logo display in the home page grid.",
+    "addBrand": "Add Partner",
+    "name": "Brand Name",
+    "slug": "SimpleIcons Slug",
+    "override": "Logo URL (Optional)",
+    "visible": "Visibility",
+    "order": "Priority Order",
+    "actions": "Protocols",
+    "isOther": "Display as 'Other' link",
+    "save": "Deploy Partner",
+    "delete": "Remove Node"
   },
   "Contact": {
     "commInterface": "Comm Interface",

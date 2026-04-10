@@ -1,30 +1,32 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Car, Layers } from "lucide-react"
 import { Link } from '@/i18n/routing'
 
-const BRANDS = [
-  { name: "Rolls-Royce", slug: "rollsroyce" },
-  { name: "Bentley", slug: "bentley" },
-  { name: "Mercedes", overrideUrl: "https://www.carlogos.org/car-logos/mercedes-benz-logo.png" },
-  { name: "BMW", slug: "bmw" },
-  { name: "Audi", slug: "audi" },
-  { name: "Lexus", overrideUrl: "https://www.carlogos.org/car-logos/lexus-logo.png" },
-  { name: "Porsche", slug: "porsche" },
-  { name: "Ferrari", slug: "ferrari" },
-  { name: "Lamborghini", slug: "lamborghini" },
-  { name: "Bugatti", slug: "bugatti" },
-  { name: "Maserati", slug: "maserati" },
-  { name: "Land Rover", overrideUrl: "https://www.carlogos.org/car-logos/land-rover-logo.png" },
-  { name: "MINI JOHN", overrideUrl: "https://www.carlogos.org/logo/Mini-logo.png" },
-  { name: "MCLAREN", overrideUrl: "https://www.carlogos.org/logo/McLaren-logo.png" },
-  { name: "Other", isOther: true }
-]
-
 export function BrandGrid() {
   const t = useTranslations('Fleet')
+  const [brands, setBrands] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const res = await fetch('/api/brands')
+        const data = await res.json()
+        if (Array.isArray(data) && data.length > 0) {
+          setBrands(data.filter((b: any) => b.visible))
+        }
+      } catch (err) {
+        console.error('Failed to fetch brands, using fallback', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchBrands()
+  }, [])
+
   return (
     <section id="brands" className="container mx-auto px-6 py-24">
       <div className="flex flex-col items-center text-center space-y-4 mb-16">
@@ -34,9 +36,9 @@ export function BrandGrid() {
          <p className="text-sm font-medium text-muted-foreground opacity-60 uppercase tracking-[0.4em]">{t('gridSubtitle')}</p>
       </div>
       
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        {BRANDS.map((brand, i) => (
-           <BrandCard key={i} brand={brand} t={t} />
+      <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 transition-opacity duration-500 ${loading ? 'opacity-40' : 'opacity-100'}`}>
+        {brands.map((brand, i) => (
+           <BrandCard key={brand._id || i} brand={brand} t={t} />
         ))}
       </div>
     </section>
