@@ -20,6 +20,11 @@ interface FooterConfigData {
   descriptionFr: string;
   descriptionEn: string;
   descriptionAr: string;
+  descriptionEs: string;
+  descriptionDe: string;
+  descriptionRu: string;
+  descriptionPl: string;
+  descriptionSk: string;
   facebook: string; instagram: string; twitter: string;
   tiktok: string; website: string; youtube: string; linkedin: string;
   quickLinks: QuickLink[];
@@ -30,9 +35,14 @@ interface FooterConfigData {
 const empty: FooterConfigData = {
   logoUrl: '', logoAlt: '',
   description: '',
-  descriptionFr: '',
-  descriptionEn: '',
-  descriptionAr: '',
+  descriptionFr: 'Louez votre voiture à Cannes facilement et profitez de chaque trajet en toute liberté. Service fiable, flotte variée et assistance 24/7.',
+  descriptionEn: 'Rent your car in Cannes easily and enjoy every journey with total freedom. Reliable service, varied fleet, and 24/7 assistance.',
+  descriptionAr: 'استأجر سيارتك في كان بسهولة واستمتع بكل رحلة بحرية تامة. خدمة موثوقة، أسطول متنوع ودعم على مدار الساعة.',
+  descriptionEs: 'Alquile su coche en Cannes fácilmente y disfrute de cada trayecto con total libertad. Servicio fiable, flota variada y asistencia 24/7.',
+  descriptionDe: 'Mieten Sie Ihr Auto in Cannes ganz einfach und genießen Sie jede Fahrt in völliger Freiheit. Zuverlässiger Service, vielfältige Flotte und 24/7 Unterstützung.',
+  descriptionRu: 'Арендуйте автомобиль в Каннах легко и наслаждайтесь каждой поездкой в полной свободе. Надежный сервис, разнообразный автопарк и поддержка 24/7.',
+  descriptionPl: 'Wynajmij samochód w Cannes bez wysiłku i ciesz się każdą podróżą z pełną swobodą. Niezawodna obsługa, urozmaicona flota i wsparcie 24/7.',
+  descriptionSk: 'Prenajmite si auto v Cannes jednoducho a užite si každú cestu v úplnej slobode. Spoľahlivý servis, pestrá flotila a asistencia 24/7.',
   facebook: '', instagram: '', twitter: '',
   tiktok: '', website: '', youtube: '', linkedin: '',
   quickLinks: [],
@@ -94,7 +104,7 @@ export function FooterManager() {
       setSaved(true)
     } catch (error) {
       console.error(error)
-      alert("Erreur de connexion à la base de données. Vérifiez votre configuration MongoDB Atlas (IP Whitelist).")
+      alert(t('dbError'))
     }
     setSaving(false)
     setTimeout(() => setSaved(false), 3000)
@@ -290,6 +300,66 @@ export function FooterManager() {
                 className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 font-semibold text-sm text-foreground placeholder:text-muted-foreground/40 outline-none resize-none focus:border-primary/40 transition-colors"
               />
             </div>
+            <div className="space-y-3">
+              <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 flex items-center gap-2">
+                <AlignLeft className="w-3.5 h-3.5" /> {t('descLabelEs')}
+              </Label>
+              <textarea
+                value={data.descriptionEs}
+                onChange={e => set('descriptionEs', e.target.value)}
+                placeholder={t('descPlaceholder')}
+                rows={4}
+                className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 font-semibold text-sm text-foreground placeholder:text-muted-foreground/40 outline-none resize-none focus:border-primary/40 transition-colors"
+              />
+            </div>
+            <div className="space-y-3">
+              <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 flex items-center gap-2">
+                <AlignLeft className="w-3.5 h-3.5" /> {t('descLabelDe')}
+              </Label>
+              <textarea
+                value={data.descriptionDe}
+                onChange={e => set('descriptionDe', e.target.value)}
+                placeholder={t('descPlaceholder')}
+                rows={4}
+                className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 font-semibold text-sm text-foreground placeholder:text-muted-foreground/40 outline-none resize-none focus:border-primary/40 transition-colors"
+              />
+            </div>
+            <div className="space-y-3">
+              <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 flex items-center gap-2">
+                <AlignLeft className="w-3.5 h-3.5" /> {t('descLabelRu')}
+              </Label>
+              <textarea
+                value={data.descriptionRu}
+                onChange={e => set('descriptionRu', e.target.value)}
+                placeholder={t('descPlaceholder')}
+                rows={4}
+                className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 font-semibold text-sm text-foreground placeholder:text-muted-foreground/40 outline-none resize-none focus:border-primary/40 transition-colors"
+              />
+            </div>
+            <div className="space-y-3">
+              <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 flex items-center gap-2">
+                <AlignLeft className="w-3.5 h-3.5" /> {t('descLabelPl')}
+              </Label>
+              <textarea
+                value={data.descriptionPl}
+                onChange={e => set('descriptionPl', e.target.value)}
+                placeholder={t('descPlaceholder')}
+                rows={4}
+                className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 font-semibold text-sm text-foreground placeholder:text-muted-foreground/40 outline-none resize-none focus:border-primary/40 transition-colors"
+              />
+            </div>
+            <div className="space-y-3">
+              <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 flex items-center gap-2">
+                <AlignLeft className="w-3.5 h-3.5" /> {t('descLabelSk')}
+              </Label>
+              <textarea
+                value={data.descriptionSk}
+                onChange={e => set('descriptionSk', e.target.value)}
+                placeholder={t('descPlaceholder')}
+                rows={4}
+                className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 font-semibold text-sm text-foreground placeholder:text-muted-foreground/40 outline-none resize-none focus:border-primary/40 transition-colors"
+              />
+            </div>
           </div>
         )}
 
@@ -300,7 +370,7 @@ export function FooterManager() {
             {field('Instagram', 'instagram', <Share2 className="h-4 h-4" />, 'https://instagram.com/...')}
             {field('Twitter / X', 'twitter', <Send className="h-4 h-4" />, 'https://twitter.com/...')}
             {field('TikTok', 'tiktok', <Video className="w-3.5 h-3.5" />, 'https://tiktok.com/@...')}
-            {field('Site Web', 'website', <Globe className="w-3.5 h-3.5" />, 'https://votresite.com')}
+            {field(t('siteWeb'), 'website', <Globe className="w-3.5 h-3.5" />, 'https://votresite.com')}
             {field('YouTube', 'youtube', <Video className="h-4 h-4" />, 'https://youtube.com/...')}
             {field('LinkedIn', 'linkedin', <LayoutTemplate className="h-4 h-4" />, 'https://linkedin.com/...')}
           </div>

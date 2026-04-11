@@ -60,7 +60,7 @@ export function AuthForm({ type }: AuthFormProps) {
         const data = await res.json()
 
         if (!res.ok) {
-          setError(data.message || 'Signup failed')
+          setError(data.message || t('signupFailed'))
         } else {
           // On success, automatically sign in or redirect to login
           const signinRes = await signIn('credentials', {
@@ -103,7 +103,7 @@ export function AuthForm({ type }: AuthFormProps) {
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <div className="p-3 text-[12px] font-bold text-accent bg-accent/10 border-l-4 border-accent rounded-r">
-                Error: {error}
+                {t('errorPrefix')}: {error}
               </div>
             )}
 

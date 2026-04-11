@@ -122,12 +122,12 @@ export default async function AdminPromosPage({ params }: { params: Promise<{ lo
                    <div className="flex items-center gap-3 w-full md:w-auto justify-end">
                       <form action={async () => { 'use server'; await togglePromoStatus(promo._id, promo.isActive); revalidatePath('/[locale]/admin/promos'); }} className="flex-1 md:flex-none">
                          <Button type="submit" variant="ghost" className="w-full md:w-12 h-14 md:h-12 rounded-2xl bg-white/5 hover:bg-accent/20 text-muted-foreground hover:text-accent transition-all flex items-center justify-center gap-2">
-                            <Power className="w-5 h-5" /> <span className="md:hidden text-[10px] font-black uppercase">Toggle status</span>
+                            <Power className="w-5 h-5" /> <span className="md:hidden text-[10px] font-black uppercase">{t('toggleStatus')}</span>
                          </Button>
                       </form>
                       <form action={async () => { 'use server'; await deletePromo(promo._id); revalidatePath('/[locale]/admin/promos'); }} className="flex-1 md:flex-none">
                          <Button type="submit" variant="ghost" className="w-full md:w-12 h-14 md:h-12 rounded-2xl bg-white/5 hover:bg-red-500/20 text-muted-foreground hover:text-red-500 transition-all flex items-center justify-center gap-2">
-                            <Trash2 className="w-5 h-5" /> <span className="md:hidden text-[10px] font-black uppercase">Delete</span>
+                            <Trash2 className="w-5 h-5" /> <span className="md:hidden text-[10px] font-black uppercase">{t('delete')}</span>
                          </Button>
                       </form>
                    </div>

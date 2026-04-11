@@ -9,6 +9,7 @@ import {
 import { updateBooking, deleteBooking } from '@/actions/booking-actions'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 const STATUS_COLORS: Record<string, string> = {
   pending: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
@@ -29,6 +30,7 @@ interface Props {
 }
 
 export function StatistiquesClient({ initialBookings }: Props) {
+  const t = useTranslations('Stats')
   const [bookings, setBookings] = useState(initialBookings)
   const [selected, setSelected] = useState<any | null>(null)
   const [saving, setSaving] = useState(false)
@@ -47,7 +49,7 @@ export function StatistiquesClient({ initialBookings }: Props) {
 
   const handleDelete = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation()
-    if (!confirm('Supprimer cette demande définitivement ?')) return
+    if (!confirm(t('deleteConfirm'))) return
     setDeleting(id)
     await deleteBooking(id)
     setBookings(prev => prev.filter(b => b._id !== id))
@@ -87,27 +89,27 @@ export function StatistiquesClient({ initialBookings }: Props) {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.4em] rounded-full border border-primary/20 mb-4">
-            <ShieldCheck className="w-3 h-3" /> Tour de Contrôle Admin
+            <ShieldCheck className="w-3 h-3" /> {t('controlTour')}
           </div>
           <h1 className="text-6xl md:text-8xl font-black italic tracking-tighter uppercase leading-none">
-            Statis<span className="text-primary italic">tiques</span>
+            {t('title')}<span className="text-primary italic">{t('titleAccent')}</span>
           </h1>
           <p className="text-sm font-medium text-muted-foreground opacity-60 mt-3">
-            Gestion centralisée de toutes les demandes de location clients.
+            {t('subtitle')}
           </p>
         </div>
         <Button onClick={() => router.refresh()} variant="ghost" className="gap-2 border border-white/10 rounded-2xl font-black text-xs uppercase tracking-widest">
-          <RefreshCw className="w-4 h-4" /> Actualiser
+          <RefreshCw className="w-4 h-4" /> {t('refresh')}
         </Button>
       </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {[
-          { l: 'Total Demandes', v: stats.total, i: <BarChart3 className="w-5 h-5" />, c: 'text-primary' },
-          { l: 'Approuvées', v: stats.approved, i: <CheckCircle2 className="w-5 h-5" />, c: 'text-green-400' },
-          { l: 'En Attente', v: stats.pending, i: <Clock className="w-5 h-5" />, c: 'text-yellow-400' },
-          { l: 'Paiements OK', v: stats.paid, i: <CreditCard className="w-5 h-5" />, c: 'text-blue-400' },
+          { l: t('totalRequests'), v: stats.total, i: <BarChart3 className="w-5 h-5" />, c: 'text-primary' },
+          { l: t('approved'), v: stats.approved, i: <CheckCircle2 className="w-5 h-5" />, c: 'text-green-400' },
+          { l: t('pending'), v: stats.pending, i: <Clock className="w-5 h-5" />, c: 'text-yellow-400' },
+          { l: t('paidOK'), v: stats.paid, i: <CreditCard className="w-5 h-5" />, c: 'text-blue-400' },
         ].map((s, i) => (
           <div key={i} className="glass-panel p-6 rounded-3xl bg-card/40 border-white/5 flex flex-col justify-between h-36">
             <div className={s.c}>{s.i}</div>
@@ -122,22 +124,22 @@ export function StatistiquesClient({ initialBookings }: Props) {
       {/* Bookings Table */}
       <div className="glass-panel p-8 rounded-[2.5rem] bg-card/40 border-white/5">
         <h2 className="text-2xl font-black italic tracking-tighter uppercase mb-8">
-          Liste des <span className="text-primary">Demandes</span>
+          {t('requestList').split(' ').slice(0, -1).join(' ')} <span className="text-primary">{t('requestList').split(' ').pop()}</span>
         </h2>
 
         {bookings.length === 0 ? (
           <div className="py-20 text-center">
             <Car className="w-12 h-12 mx-auto text-muted-foreground opacity-20 mb-4" />
-            <p className="text-xs font-black uppercase tracking-widest text-muted-foreground opacity-40">Aucune demande enregistrée.</p>
+            <p className="text-xs font-black uppercase tracking-widest text-muted-foreground opacity-40">{t('noRequests')}</p>
           </div>
         ) : (
           <div className="space-y-3">
             <div className="hidden lg:grid grid-cols-12 gap-4 px-4 pb-3 border-b border-white/5 text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-40">
-              <span className="col-span-3">Client</span>
-              <span className="col-span-3">Véhicule</span>
-              <span className="col-span-2 text-center">Date</span>
-              <span className="col-span-2 text-center">Statut</span>
-              <span className="col-span-2 text-right">Paiement</span>
+              <span className="col-span-3">{t('colClient')}</span>
+              <span className="col-span-3">{t('colVehicle')}</span>
+              <span className="col-span-2 text-center">{t('colDate')}</span>
+              <span className="col-span-2 text-center">{t('colStatus')}</span>
+              <span className="col-span-2 text-right">{t('colPayment')}</span>
             </div>
 
             {bookings.map((b) => (
@@ -160,30 +162,30 @@ export function StatistiquesClient({ initialBookings }: Props) {
 
                 {/* Véhicule */}
                 <div className="lg:col-span-3 w-full border-t border-white/5 pt-3 lg:pt-0 lg:border-0">
-                  <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">Unité</div>
+                  <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">{t('unitLabel')}</div>
                   <div className="text-sm font-black uppercase italic truncate">{b.vehicleId?.brand} {b.vehicleId?.name || '—'}</div>
                 </div>
 
                 {/* Date */}
                 <div className="lg:col-span-2 w-full lg:text-center">
-                  <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">Date</div>
-                  <div className="text-xs font-bold text-muted-foreground">{new Date(b.createdAt).toLocaleDateString('fr-FR')}</div>
+                  <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">{t('colDate')}</div>
+                  <div className="text-xs font-bold text-muted-foreground">{new Date(b.createdAt).toLocaleDateString()}</div>
                 </div>
 
                 {/* Statut */}
                 <div className="lg:col-span-2 w-full lg:text-center">
-                  <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">Demande</div>
+                  <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">{t('colStatus')}</div>
                   <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${STATUS_COLORS[b.status] || STATUS_COLORS.pending}`}>
-                    {b.status || 'pending'}
+                    {t(`status${(b.status || 'pending').charAt(0).toUpperCase() + (b.status || 'pending').slice(1)}`)}
                   </span>
                 </div>
 
                 {/* Paiement + Actions */}
                 <div className="lg:col-span-2 flex items-center justify-between gap-2 w-full border-t border-white/5 pt-3 lg:pt-0 lg:border-0 lg:justify-end">
                   <div className="flex flex-col lg:items-end">
-                    <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">Finances</div>
+                    <div className="text-[10px] font-black text-primary uppercase tracking-widest lg:hidden mb-1">{t('financesLabel')}</div>
                     <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shrink-0 ${PAYMENT_COLORS[b.paymentStatus] || PAYMENT_COLORS.pending}`}>
-                      {b.paymentStatus || 'pending'}
+                      {t(`payment${(b.paymentStatus || 'pending').charAt(0).toUpperCase() + (b.paymentStatus || 'pending').slice(1)}`)}
                     </span>
                   </div>
                   <div className="flex items-center gap-1">
@@ -228,7 +230,7 @@ export function StatistiquesClient({ initialBookings }: Props) {
                   {selected.vehicleId?.brand} {selected.vehicleId?.name || '—'}
                 </h3>
                 <p className="text-xs font-black uppercase text-muted-foreground tracking-widest">
-                  Demande du {new Date(selected.createdAt).toLocaleDateString('fr-FR')}
+                  {t('modalBookingDate')} {new Date(selected.createdAt).toLocaleDateString()}
                 </p>
               </div>
             </div>
@@ -237,7 +239,7 @@ export function StatistiquesClient({ initialBookings }: Props) {
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <div className="p-5 bg-white/5 rounded-2xl border border-white/5 space-y-3">
                 <div className="text-[10px] font-black text-primary uppercase tracking-widest opacity-60 flex items-center gap-2">
-                  <User className="w-3 h-3" /> Client
+                  <User className="w-3 h-3" /> {t('modalClient')}
                 </div>
                 <div className="text-sm font-bold">{selected.userId?.firstName || selected.clientName} {selected.userId?.lastName || ''}</div>
                 <div className="text-xs text-muted-foreground">{selected.userId?.email || selected.clientEmail}</div>
@@ -245,26 +247,26 @@ export function StatistiquesClient({ initialBookings }: Props) {
               </div>
               <div className="p-5 bg-white/5 rounded-2xl border border-white/5 space-y-3">
                 <div className="text-[10px] font-black text-primary uppercase tracking-widest opacity-60 flex items-center gap-2">
-                  <Calendar className="w-3 h-3" /> Logistique
+                  <Calendar className="w-3 h-3" /> {t('modalLogistics')}
                 </div>
-                <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Début:</span> <span className="font-black">{new Date(selected.startDate).toLocaleDateString('fr-FR')}</span></div>
-                <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Fin:</span> <span className="font-black">{new Date(selected.endDate).toLocaleDateString('fr-FR')}</span></div>
+                <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">{t('modalStart')}:</span> <span className="font-black">{new Date(selected.startDate).toLocaleDateString()}</span></div>
+                <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">{t('modalEnd')}:</span> <span className="font-black">{new Date(selected.endDate).toLocaleDateString()}</span></div>
                 {selected.pickupLocation && selected.pickupLocation !== 'Dubai Hub' && (
-                  <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Lieu:</span> <span className="font-black">{selected.pickupLocation}</span></div>
+                  <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">{t('modalLocation')}:</span> <span className="font-black">{selected.pickupLocation}</span></div>
                 )}
-                <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">Total:</span> <span className="font-black text-primary">{selected.totalPrice} €</span></div>
+                <div className="text-xs"><span className="text-muted-foreground w-12 inline-block">{t('modalTotal')}:</span> <span className="font-black text-primary">{selected.totalPrice} €</span></div>
               </div>
             </div>
 
             {/* Editable Fields */}
             <div className="space-y-5 border-t border-white/5 pt-6">
               <div className="text-[10px] font-black text-primary uppercase tracking-widest opacity-60 flex items-center gap-2 mb-4">
-                <AlertCircle className="w-3 h-3" /> Modifier la Demande
+                <AlertCircle className="w-3 h-3" /> {t('modalEditTitle')}
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest opacity-60">Statut de Demande</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest opacity-60">{t('modalStatusLabel')}</label>
                   <select
                     value={editStatus}
                     onChange={e => {
@@ -279,18 +281,18 @@ export function StatistiquesClient({ initialBookings }: Props) {
                     }}
                     className="w-full bg-background border border-white/10 rounded-2xl h-12 font-bold text-sm px-4 text-foreground outline-none cursor-pointer"
                   >
-                    <option value="pending">En attente</option>
-                    <option value="approved">Approuvé ✓</option>
-                    <option value="refused">Refusé ✗</option>
-                    <option value="completed">Complété</option>
+                    <option value="pending">{t('statusPending')}</option>
+                    <option value="approved">{t('statusApproved')}</option>
+                    <option value="refused">{t('statusRefused')}</option>
+                    <option value="completed">{t('statusCompleted')}</option>
                   </select>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between items-center px-1">
-                    <label className="text-[10px] font-black uppercase tracking-widest opacity-60">Statut Paiement</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest opacity-60">{t('modalPaymentLabel')}</label>
                     {editStatus === 'pending' && (
                       <span className="text-[8px] font-black text-yellow-500 uppercase tracking-tighter opacity-80 flex items-center gap-1">
-                        <AlertCircle className="w-2.5 h-2.5" /> Débloqué après approbation
+                        <AlertCircle className="w-2.5 h-2.5" /> {t('paymentUnlockedHint')}
                       </span>
                     )}
                   </div>
@@ -300,23 +302,23 @@ export function StatistiquesClient({ initialBookings }: Props) {
                     disabled={editStatus === 'pending'}
                     className={`w-full bg-background border border-white/10 rounded-2xl h-12 font-bold text-sm px-4 text-foreground outline-none cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-all ${editStatus === 'pending' ? 'grayscale' : ''}`}
                   >
-                    <option value="pending">En attente</option>
+                    <option value="pending">{t('paymentPending')}</option>
                     {(editStatus === 'approved' || editStatus === 'completed') && (
-                      <option value="paid">Payé ✓</option>
+                      <option value="paid">{t('paymentPaid')}</option>
                     )}
-                    <option value="refunded">Remboursé</option>
-                    <option value="failed">Échoué ✗</option>
+                    <option value="refunded">{t('paymentRefunded')}</option>
+                    <option value="failed">{t('paymentFailed')}</option>
                   </select>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest opacity-60">Notes internes</label>
+                <label className="text-[10px] font-black uppercase tracking-widest opacity-60">{t('modalNotesLabel')}</label>
                 <textarea
                   value={editNotes}
                   onChange={e => setEditNotes(e.target.value)}
                   rows={3}
-                  placeholder="Ajouter une note interne..."
+                  placeholder={t('modalNotesPlaceholder')}
                   className="w-full bg-background border border-white/10 rounded-2xl font-medium text-sm p-4 text-foreground outline-none resize-none"
                 />
               </div>
@@ -325,12 +327,12 @@ export function StatistiquesClient({ initialBookings }: Props) {
             {/* Actions */}
             <div className="flex gap-4 mt-8">
               <Button onClick={() => setSelected(null)} variant="ghost" className="flex-1 border border-white/10 font-black text-xs uppercase tracking-widest rounded-2xl h-12">
-                Annuler
+                {t('cancel')}
               </Button>
               <Button onClick={handleSave} disabled={saving} className="flex-1 bg-primary font-black text-xs uppercase tracking-widest rounded-2xl h-12 shadow-lg shadow-primary/20">
                 {saving
                   ? <Loader2 className="w-4 h-4 animate-spin mx-auto" />
-                  : <><CheckCircle2 className="w-4 h-4 mr-2" /> Enregistrer</>
+                  : <><CheckCircle2 className="w-4 h-4 mr-2" /> {t('save')}</>
                 }
               </Button>
             </div>

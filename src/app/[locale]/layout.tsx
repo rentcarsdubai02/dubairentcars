@@ -70,11 +70,15 @@ export default async function LocaleLayout(
   const messages = await getMessages();
 
   let logoUrl = undefined;
+  let whatsappNumber = undefined;
   try {
     await connectToDatabase();
     const config = await FooterConfig.findOne({ singleton: 'main' }).lean();
     if (config?.logoUrl) {
       logoUrl = config.logoUrl;
+    }
+    if (config?.whatsapp) {
+      whatsappNumber = config.whatsapp;
     }
   } catch (e) {
     // silently fail and fallback to default
@@ -86,7 +90,7 @@ export default async function LocaleLayout(
         <AuthProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <div className="relative flex min-h-screen flex-col">
-              <Header logoUrl={logoUrl} />
+              <Header logoUrl={logoUrl} whatsappNumber={whatsappNumber} />
               <main className="flex-1">
                 {children}
               </main>

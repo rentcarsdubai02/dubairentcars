@@ -39,7 +39,9 @@
     "phone": "الهاتف (اختياري)",
     "processing": "جاري المعالجة...",
     "securityProtocol": "بروتوكول الأمان مفعل",
-    "encryptedAccess": "وصول مشفر"
+    "encryptedAccess": "وصول مشفر",
+    "signupFailed": "فشل التسجيل",
+    "errorPrefix": "خطأ"
   },
   "Fleet": {
     "title": "إدارة الأسطول",
@@ -177,6 +179,11 @@
     "rankSilver": "فضي",
     "rankGold": "ذهبي",
     "rankPlatinum": "طيار نخبة",
+    "driver": "سائق",
+    "guideAdmin": "دليل المسؤول",
+    "guideAgent": "دليل الوكيل",
+    "updates": "التحديثات",
+    "noProfile": "لم يتم العثور على ملف تعريف",
     "copy": "نسخ",
     "copied": "تم النسخ!",
     "deposit": "تاريخ الطلب:",
@@ -287,13 +294,15 @@
     "discountPlaceholder": "20",
     "inject": "إضافة العرض",
     "noRewards": "لا توجد مكافآت مسجلة حالياً.",
-    "off": "خصم",
     "targetAudienceLabel": "الجمهور المستهدف",
     "targetAll": "الكل (زوار وعملاء)",
     "targetBronze": "رتبة برونزية",
     "targetSilver": "رتبة فضية",
     "targetGold": "رتبة ذهبية",
-    "targetElite": "رتبة النخبة"
+    "targetElite": "رتبة النخبة",
+    "toggleStatus": "تبديل الحالة",
+    "delete": "حذف",
+    "off": "خصم"
   },
   "AdminFooter": {
     "badge": "المشرف — إدارة التذييل",
@@ -317,6 +326,11 @@
     "descLabelFr": "وصف الموقع (الفرنسية)",
     "descLabelEn": "وصف الموقع (الإنجليزية)",
     "descLabelAr": "وصف الموقع (العربية)",
+    "descLabelEs": "وصف الموقع (الإسبانية)",
+    "descLabelDe": "وصف الموقع (الألمانية)",
+    "descLabelRu": "وصف الموقع (الروسية)",
+    "descLabelPl": "وصف الموقع (البولندية)",
+    "descLabelSk": "وصف الموقع (السلوفاكية)",
     "descPlaceholder": "صف وكالتك في بضع كلمات...",
     "noLinks": "لا توجد روابط سريعة — انقر على إضافة للبدء.",
     "addLink": "إضافة رابط",
@@ -329,6 +343,8 @@
     "uploadFile": "تحميل ملف",
     "maxSize": "PNG, JPG, WEBP — MAX 2MB",
     "removeLogo": "إزالة الشعار",
+    "dbError": "خطأ في الاتصال بقاعدة البيانات. تحقق من تكوين MongoDB Atlas (القائمة البيضاء لـ IP).",
+    "siteWeb": "موقع الكتروني",
     "note": "يتم عرض الحقول المعبأة فقط في تذييل الموقع."
   },
   "AdminLocations": {
@@ -386,7 +402,14 @@
     "actions": "البروتوكولات",
     "isOther": "عرض كرابط 'أخرى'",
     "save": "نشر الشريك",
-    "delete": "حذف العقدة"
+    "delete": "حذف العقدة",
+    "decommissionConfirm": "هل أنت متأكد أنك تريد تحييد عقدة هذه العلامة التجارية؟",
+    "syncing": "مزامنة المصفوفة...",
+    "statusActive": "نشط",
+    "statusHidden": "مخفي",
+    "changeImage": "تغيير الصورة",
+    "importImage": "استيراد صورة",
+    "specialBehavior": "عقدة ارتباط سلوكية خاصة"
   },
   "Contact": {
     "commInterface": "واجهة الاتصال",

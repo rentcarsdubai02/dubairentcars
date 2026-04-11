@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import {
   Car,
   MapPin,
@@ -13,77 +13,58 @@ import {
 } from 'lucide-react'
 
 export function AgentWelcomeGuide() {
-  const locale = useLocale()
-  const isFr = locale === 'fr'
+  const t = useTranslations('AgentWelcome')
 
-  const content = {
-    title: isFr ? "Espace Agent" : "Agent Space",
-    subtitle: isFr 
-      ? "Bienvenue dans votre interface de gestion opérationnelle. Ce panneau regroupe tous les outils dont vous avez besoin pour traiter les réservations et gérer le parc automobile au quotidien."
-      : "Welcome to your operational management interface. This panel groups all the tools you need to process bookings and manage the vehicle fleet on a daily basis.",
-    sections: [
-      {
-        title: isFr ? "Gestion des Réservations" : "Booking Management",
-        icon: CalendarCheck,
-        description: isFr ? "Traitement des commandes clients." : "Processing client orders.",
-        details: isFr 
-          ? "Consultez les nouvelles demandes de réservation dans l'onglet Statistiques. Vous pouvez changer leur statut (Approuvé, Refusé, Terminé) et vérifier les paiements."
-          : "Check new booking requests in the Statistics tab. You can change their status (Approved, Refused, Completed) and verify payments.",
-        color: "text-blue-500",
-        bg: "bg-blue-500/10"
-      },
-      {
-        title: isFr ? "Gestion de Flotte" : "Fleet Management",
-        icon: Car,
-        description: isFr ? "Disponibilité des véhicules." : "Vehicle availability.",
-        details: isFr 
-          ? "Assurez-vous que les véhicules sont marqués avec le bon statut. Passez-les en 'Maintenance' ou 'Inactif' s'ils ne sont pas en état de rouler."
-          : "Ensure vehicles are marked with the correct status. Change them to 'Maintenance' or 'Inactive' if they are not roadworthy.",
-        color: "text-emerald-500",
-        bg: "bg-emerald-500/10"
-      },
-      {
-        title: isFr ? "Nos Agences" : "Locations",
-        icon: MapPin,
-        description: isFr ? "Informations logistiques." : "Logistical information.",
-        details: isFr 
-          ? "Vérifiez les points de retrait et de retour prévus pour chaque client afin d'organiser les remises de clés (ex: Hub de l'Aéroport vs Agence Centre-ville)."
-          : "Check the planned pickup and drop-off points for each client to organize key handovers (e.g. Airport Hub vs City Center Agency).",
-        color: "text-amber-500",
-        bg: "bg-amber-500/10"
-      },
-      {
-        title: isFr ? "Boîte de Contact" : "Contact Inbox",
-        icon: Mail,
-        description: isFr ? "Support client." : "Customer support.",
-        details: isFr 
-          ? "Traitez les messages entrants du formulaire de contact public. Répondez rapidement aux questions des clients pour améliorer la conversion."
-          : "Process incoming messages from the public contact form. Respond quickly to client questions to improve conversion.",
-        color: "text-cyan-500",
-        bg: "bg-cyan-500/10"
-      },
-      {
-        title: isFr ? "Base de Données Clients" : "Clients Database",
-        icon: Users,
-        description: isFr ? "Modération et accès." : "Moderation and access.",
-        details: isFr 
-          ? "Bannissez les utilisateurs non conformes ou supprimez définitivement les comptes des clients problématiques."
-          : "Ban non-compliant users or permanently delete the accounts of problematic clients.",
-        color: "text-purple-500",
-        bg: "bg-purple-500/10"
-      },
-      {
-        title: isFr ? "Gestion du Footer" : "Footer Management",
-        icon: LayoutTemplate,
-        description: isFr ? "Réseaux sociaux et numéros." : "Social media and numbers.",
-        details: isFr 
-          ? "Gérez les informations publiques de pied de page telles que l'adresse, l'email officiel ou les numéros de téléphone de la plateforme."
-          : "Manage public footer information such as the address, official email, or the platform's phone numbers.",
-        color: "text-orange-500",
-        bg: "bg-orange-500/10"
-      }
-    ]
-  }
+  const sections = [
+    {
+      title: t('sectionBookingsTitle'),
+      icon: CalendarCheck,
+      description: t('sectionBookingsDesc'),
+      details: t('sectionBookingsDetails'),
+      color: "text-blue-500",
+      bg: "bg-blue-500/10"
+    },
+    {
+      title: t('sectionFleetTitle'),
+      icon: Car,
+      description: t('sectionFleetDesc'),
+      details: t('sectionFleetDetails'),
+      color: "text-emerald-500",
+      bg: "bg-emerald-500/10"
+    },
+    {
+      title: t('sectionLocationsTitle'),
+      icon: MapPin,
+      description: t('sectionLocationsDesc'),
+      details: t('sectionLocationsDetails'),
+      color: "text-amber-500",
+      bg: "bg-amber-500/10"
+    },
+    {
+      title: t('sectionContactTitle'),
+      icon: Mail,
+      description: t('sectionContactDesc'),
+      details: t('sectionContactDetails'),
+      color: "text-cyan-500",
+      bg: "bg-cyan-500/10"
+    },
+    {
+      title: t('sectionUsersTitle'),
+      icon: Users,
+      description: t('sectionUsersDesc'),
+      details: t('sectionUsersDetails'),
+      color: "text-purple-500",
+      bg: "bg-purple-500/10"
+    },
+    {
+      title: t('sectionFooterTitle'),
+      icon: LayoutTemplate,
+      description: t('sectionFooterDesc'),
+      details: t('sectionFooterDetails'),
+      color: "text-orange-500",
+      bg: "bg-orange-500/10"
+    }
+  ]
 
   return (
     <div className="space-y-8">
@@ -92,15 +73,15 @@ export function AgentWelcomeGuide() {
           <ShieldCheck className="w-6 h-6 text-primary" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">{content.title}</h2>
+          <h2 className="text-2xl font-bold tracking-tight">{t('title')}</h2>
           <p className="text-muted-foreground mt-1 max-w-2xl">
-            {content.subtitle}
+            {t('subtitle')}
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {content.sections.map((section, idx) => {
+        {sections.map((section, idx) => {
           const Icon = section.icon
           return (
             <motion.div

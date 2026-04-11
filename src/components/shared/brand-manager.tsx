@@ -79,7 +79,7 @@ export function BrandManager() {
   }
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you certain you want to decommission this brand node?')) return
+    if (!confirm(t('decommissionConfirm'))) return
     const res = await fetch(`/api/brands?id=${id}`, { method: 'DELETE' })
     if (res.ok) fetchBrands()
   }
@@ -109,7 +109,7 @@ export function BrandManager() {
   if (loading) return (
     <div className="flex flex-col items-center justify-center p-24 space-y-4">
       <Loader2 className="w-12 h-12 animate-spin text-primary opacity-20" />
-      <span className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40">Synchronizing Matrix...</span>
+      <span className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40">{t('syncing')}</span>
     </div>
   )
 
@@ -153,7 +153,7 @@ export function BrandManager() {
                     className={`flex-1 h-11 rounded-2xl text-[10px] font-black uppercase tracking-widest ${brand.visible ? 'bg-primary/10 text-primary hover:bg-primary/20' : 'bg-white/5 text-muted-foreground'}`}
                    >
                       {brand.visible ? <Eye className="w-3.5 h-3.5 mr-2" /> : <EyeOff className="w-3.5 h-3.5 mr-2" />}
-                      {brand.visible ? 'Active' : 'Hidden'}
+                      {brand.visible ? t('statusActive') : t('statusHidden')}
                    </Button>
                    <Button 
                     variant="ghost" 
@@ -196,7 +196,7 @@ export function BrandManager() {
              </div>
              
              <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] opacity-50 ml-2">{t('slug')} (Optionnel)</label>
+                <label className="text-[10px] font-black uppercase tracking-[0.3em] opacity-50 ml-2">{t('slug')}</label>
                 <Input value={newBrand.slug} onChange={e => setNewBrand({...newBrand, slug: e.target.value})} placeholder="e.g. lamborghini" className="bg-white/5 border-white/10 h-16 rounded-[1.5rem] font-bold text-sm px-6" />
              </div>
 
@@ -223,12 +223,12 @@ export function BrandManager() {
                       {newBrand.overrideUrl ? (
                         <div className="flex items-center gap-3">
                            <img src={newBrand.overrideUrl} alt="Logo Preview" className="h-8 object-contain brightness-0 invert" />
-                           <span className="text-[10px] font-black uppercase text-primary">Change Image</span>
+                           <span className="text-[10px] font-black uppercase text-primary">{t('changeImage')}</span>
                         </div>
                       ) : (
                         <>
                           <ImageIcon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                          <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">Import Image</span>
+                          <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">{t('importImage')}</span>
                         </>
                       )}
                     </div>
@@ -243,7 +243,7 @@ export function BrandManager() {
                    </div>
                    <div>
                       <span className="text-[11px] font-black uppercase tracking-widest block">{t('isOther')}</span>
-                      <p className="text-[9px] font-medium text-muted-foreground opacity-60 uppercase mt-0.5">Special behavioral link node</p>
+                      <p className="text-[9px] font-medium text-muted-foreground opacity-60 uppercase mt-0.5">{t('specialBehavior')}</p>
                    </div>
                 </div>
                 <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${newBrand.isOther ? 'bg-primary border-primary' : 'border-white/20'}`}>

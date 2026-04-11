@@ -13,11 +13,16 @@ export default async function Index({params}: {params: Promise<{locale: string}>
   let dbSubtitle = undefined;
   try {
     await connectToDatabase();
-    const cfg = await FooterConfig.findOne({ singleton: 'main' }).lean();
+    const cfg = await FooterConfig.findOne({ singleton: 'main' }).lean() as any;
     if (cfg) {
-      if (locale === 'fr') dbSubtitle = cfg.descriptionFr;
-      else if (locale === 'ar') dbSubtitle = cfg.descriptionAr;
-      else dbSubtitle = cfg.descriptionEn;
+      if (locale === 'fr') dbSubtitle = cfg.descriptionFr || cfg.description;
+      else if (locale === 'ar') dbSubtitle = cfg.descriptionAr || cfg.description;
+      else if (locale === 'es') dbSubtitle = cfg.descriptionEs || cfg.description;
+      else if (locale === 'de') dbSubtitle = cfg.descriptionDe || cfg.description;
+      else if (locale === 'ru') dbSubtitle = cfg.descriptionRu || cfg.description;
+      else if (locale === 'pl') dbSubtitle = cfg.descriptionPl || cfg.description;
+      else if (locale === 'sk') dbSubtitle = cfg.descriptionSk || cfg.description;
+      else dbSubtitle = cfg.descriptionEn || cfg.description;
     }
   } catch (e) {
     console.error('Error fetching footer config for hero:', e);

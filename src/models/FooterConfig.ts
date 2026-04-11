@@ -18,6 +18,11 @@ const FooterConfigSchema = new Schema({
   descriptionFr: { type: String, default: '' },
   descriptionEn: { type: String, default: '' },
   descriptionAr: { type: String, default: '' },
+  descriptionEs: { type: String, default: '' },
+  descriptionDe: { type: String, default: '' },
+  descriptionRu: { type: String, default: '' },
+  descriptionPl: { type: String, default: '' },
+  descriptionSk: { type: String, default: '' },
 
   // Social networks
   facebook:    { type: String, default: '' },

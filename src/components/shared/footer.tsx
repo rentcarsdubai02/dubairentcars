@@ -29,9 +29,10 @@ async function getFooterConfig() {
 }
 
 export async function Footer({ locale }: { locale?: string }) {
+  const resolvedLocale = locale ?? 'en'
   const [t, tn] = await Promise.all([
-    getTranslations('Footer'),
-    getTranslations('Navigation')
+    getTranslations({ locale: resolvedLocale, namespace: 'Footer' }),
+    getTranslations({ locale: resolvedLocale, namespace: 'Navigation' })
   ])
   const cfg = await getFooterConfig()
   const currentYear = new Date().getFullYear()
@@ -75,7 +76,13 @@ export async function Footer({ locale }: { locale?: string }) {
   // Use localized description based on site locale
   let localizedDescription = cfg.description; // fallback
   if (locale === 'fr') localizedDescription = cfg.descriptionFr || cfg.description;
+  else if (locale === 'en') localizedDescription = cfg.descriptionEn || cfg.description;
   else if (locale === 'ar') localizedDescription = cfg.descriptionAr || cfg.description;
+  else if (locale === 'es') localizedDescription = cfg.descriptionEs || cfg.description;
+  else if (locale === 'de') localizedDescription = cfg.descriptionDe || cfg.description;
+  else if (locale === 'ru') localizedDescription = cfg.descriptionRu || cfg.description;
+  else if (locale === 'pl') localizedDescription = cfg.descriptionPl || cfg.description;
+  else if (locale === 'sk') localizedDescription = cfg.descriptionSk || cfg.description;
   else localizedDescription = cfg.descriptionEn || cfg.description;
 
   const hasLeft   = !!(cfg.logoUrl || localizedDescription || socials.length > 0)

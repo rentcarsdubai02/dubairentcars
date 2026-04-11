@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import {
   BarChart3,
   Car,
@@ -14,87 +14,66 @@ import {
 } from 'lucide-react'
 
 export function AdminWelcomeGuide() {
-  const locale = useLocale()
-  const isFr = locale === 'fr'
+  const t = useTranslations('AdminWelcome')
 
-  const content = {
-    title: isFr ? "Espace Administrateur" : "Administrator Space",
-    subtitle: isFr 
-      ? "Bienvenue dans votre interface de gestion. Cette page vous résume l'ensemble des outils mis à votre disposition dans la barre de navigation latérale pour piloter votre plateforme RentCar de manière optimale."
-      : "Welcome to your management interface. This page summarizes all the tools available in your sidebar navigation to optimally drive your RentCar platform.",
-    sections: [
-      {
-        title: isFr ? "Statistiques" : "Statistics",
-        icon: BarChart3,
-        description: isFr ? "Votre tableau de bord central." : "Your central dashboard.",
-        details: isFr 
-          ? "Surveillez les réservations récentes, le chiffre d'affaires, et analysez la croissance de l'agence. Visualisez d'un simple coup d'œil les paiements confirmés ou en attente."
-          : "Monitor recent bookings, revenue, and analyze agency growth. Visualize confirmed or pending payments at a glance.",
-        color: "text-blue-500",
-        bg: "bg-blue-500/10"
-      },
-      {
-        title: isFr ? "Gestion de Flotte" : "Fleet Management",
-        icon: Car,
-        description: isFr ? "Catalogue numérique des véhicules." : "Digital vehicle catalog.",
-        details: isFr 
-          ? "Ajoutez, modifiez ou retirez des véhicules de la plateforme. Gérez les statuts (actif, maintenance) pour contrôler ce qui est visible ou réservable par les clients sur le site."
-          : "Add, edit, or remove vehicles from the platform. Manage statuses (active, maintenance) to control what is visible or bookable by clients on the site.",
-        color: "text-emerald-500",
-        bg: "bg-emerald-500/10"
-      },
-      {
-        title: isFr ? "Nos Agences" : "Locations",
-        icon: MapPin,
-        description: isFr ? "Gestion des points relais." : "Management of relay points.",
-        details: isFr 
-          ? "Définissez les adresses de retrait et de retour. Ces lieux apparaîtront automatiquement dans les menus déroulants de réservation pour les clients."
-          : "Define pickup and drop-off addresses. These locations will automatically appear in the booking dropdowns for clients.",
-        color: "text-amber-500",
-        bg: "bg-amber-500/10"
-      },
-      {
-        title: isFr ? "Promotions" : "Promotions",
-        icon: Ticket,
-        description: isFr ? "Codes promo et réductions." : "Promo codes and discounts.",
-        details: isFr 
-          ? "Créez des codes de réduction (ex: SUMMER-2026), définissez le pourcentage de rabais et la cible (Tous, Silver, Elite). Ces codes sont calculés automatiquement dans le panier."
-          : "Create discount codes (e.g. SUMMER-2026), define the discount percentage and the target (All, Silver, Elite). These codes are automatically calculated in the cart.",
-        color: "text-purple-500",
-        bg: "bg-purple-500/10"
-      },
-      {
-        title: isFr ? "Utilisateurs" : "Users",
-        icon: Users,
-        description: isFr ? "Annuaire des clients et staff." : "Directory of clients and staff.",
-        details: isFr 
-          ? "Consultez les profils inscrits. Gérez les rôles, analysez le statut des clients ou élevez des membres de votre équipe aux droits d'administration."
-          : "Consult registered profiles. Manage roles, analyze client status, or promote team members to administrative rights.",
-        color: "text-rose-500",
-        bg: "bg-rose-500/10"
-      },
-      {
-        title: isFr ? "Boîte de Contact" : "Contact Inbox",
-        icon: Mail,
-        description: isFr ? "Réception des requêtes clients." : "Reception of client requests.",
-        details: isFr 
-          ? "Lisez et gérez les messages envoyés depuis le formulaire de contact du site. L'interface centralise toutes les requêtes du service client."
-          : "Read and manage messages sent from the site's contact form. The interface centralizes all customer service requests.",
-        color: "text-cyan-500",
-        bg: "bg-cyan-500/10"
-      },
-      {
-        title: isFr ? "Pied de page (Footer)" : "Footer configuration",
-        icon: PanelBottom,
-        description: isFr ? "Design et liens du bas de page." : "Design and footer links.",
-        details: isFr 
-          ? "Modifiez l'apparence, les informations de contact, et les liens des réseaux sociaux affichés en bas du site public d'un simple clic."
-          : "Modify the appearance, contact information, and social media links displayed at the bottom of the public site with a single click.",
-        color: "text-zinc-500",
-        bg: "bg-zinc-500/10"
-      }
-    ]
-  }
+  const sections = [
+    {
+      title: t('sectionStatsTitle'),
+      icon: BarChart3,
+      description: t('sectionStatsDesc'),
+      details: t('sectionStatsDetails'),
+      color: "text-blue-500",
+      bg: "bg-blue-500/10"
+    },
+    {
+      title: t('sectionFleetTitle'),
+      icon: Car,
+      description: t('sectionFleetDesc'),
+      details: t('sectionFleetDetails'),
+      color: "text-emerald-500",
+      bg: "bg-emerald-500/10"
+    },
+    {
+      title: t('sectionLocationsTitle'),
+      icon: MapPin,
+      description: t('sectionLocationsDesc'),
+      details: t('sectionLocationsDetails'),
+      color: "text-amber-500",
+      bg: "bg-amber-500/10"
+    },
+    {
+      title: t('sectionPromosTitle'),
+      icon: Ticket,
+      description: t('sectionPromosDesc'),
+      details: t('sectionPromosDetails'),
+      color: "text-purple-500",
+      bg: "bg-purple-500/10"
+    },
+    {
+      title: t('sectionUsersTitle'),
+      icon: Users,
+      description: t('sectionUsersDesc'),
+      details: t('sectionUsersDetails'),
+      color: "text-rose-500",
+      bg: "bg-rose-500/10"
+    },
+    {
+      title: t('sectionContactTitle'),
+      icon: Mail,
+      description: t('sectionContactDesc'),
+      details: t('sectionContactDetails'),
+      color: "text-cyan-500",
+      bg: "bg-cyan-500/10"
+    },
+    {
+      title: t('sectionFooterTitle'),
+      icon: PanelBottom,
+      description: t('sectionFooterDesc'),
+      details: t('sectionFooterDetails'),
+      color: "text-zinc-500",
+      bg: "bg-zinc-500/10"
+    }
+  ]
 
   return (
     <div className="space-y-8">
@@ -103,15 +82,15 @@ export function AdminWelcomeGuide() {
           <Info className="w-6 h-6 text-primary" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">{content.title}</h2>
+          <h2 className="text-2xl font-bold tracking-tight">{t('title')}</h2>
           <p className="text-muted-foreground mt-1 max-w-2xl">
-            {content.subtitle}
+            {t('subtitle')}
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {content.sections.map((section, idx) => {
+        {sections.map((section, idx) => {
           const Icon = section.icon
           return (
             <motion.div

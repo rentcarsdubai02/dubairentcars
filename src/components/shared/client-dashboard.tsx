@@ -59,7 +59,7 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
 
    const rank = getRankInfo()
 
-   if (!user) return <div className="text-center py-20 uppercase font-black opacity-20 tracking-widest">No Profile Data Found</div>
+   if (!user) return <div className="text-center py-20 uppercase font-black opacity-20 tracking-widest">{t('noProfile')}</div>
 
    const handleCopy = (code: string) => {
       navigator.clipboard.writeText(code)
@@ -117,7 +117,7 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
                      <div className="absolute bottom-1 right-1 w-6 h-6 bg-green-500 border-4 border-background rounded-full" />
                   </div>
                   <h2 className="text-2xl font-black tracking-tight mb-1">{user?.firstName} {user?.lastName}</h2>
-                  <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] italic">{user?.role || 'DRIVER'}</p>
+                  <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] italic">{user?.role === 'client' ? t('driver') : user?.role?.replace('_', ' ')}</p>
                </div>
 
                <div className="mt-10 space-y-2">
@@ -126,8 +126,8 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
                      { id: 'history', l: t('history'), i: <Calendar className="w-4 h-4" /> },
                      { id: 'promos', l: t('promos'), i: <Ticket className="w-4 h-4" /> },
                      { id: 'profile', l: t('profile'), i: <Settings className="w-4 h-4" /> },
-                     ...(user?.role === 'admin' || user?.role === 'super_admin' ? [{ id: 'admin-guide', l: 'Guide Admin', i: <Info className="w-4 h-4" /> }] : []),
-                     ...(user?.role === 'agent' ? [{ id: 'agent-guide', l: 'Guide Agent', i: <Info className="w-4 h-4" /> }] : []),
+                     ...(user?.role === 'admin' || user?.role === 'super_admin' ? [{ id: 'admin-guide', l: t('guideAdmin'), i: <Info className="w-4 h-4" /> }] : []),
+                     ...(user?.role === 'agent' ? [{ id: 'agent-guide', l: t('guideAgent'), i: <Info className="w-4 h-4" /> }] : []),
                   ].map((item) => (
                      <button
                         key={item.id}
@@ -199,7 +199,7 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
                   </div>
 
                   <div className="glass-panel p-10 rounded-[2.5rem] bg-card/60 border-white/10">
-                     <h2 className="text-4xl font-black italic tracking-tighter uppercase mb-8">{t('latestUpdates').split(' ')[0]} <span className="text-primary italic">Updates</span></h2>
+                     <h2 className="text-4xl font-black italic tracking-tighter uppercase mb-8">{t('latestUpdates').split(' ')[0]} <span className="text-primary italic">{t('updates')}</span></h2>
                      <div className="p-8 rounded-3xl bg-primary/10 border border-primary/20 text-sm font-medium text-foreground leading-relaxed italic">
                         {t('welcome')} {t('history')} ({initialData.bookings.length})
                      </div>
@@ -289,7 +289,7 @@ export function ClientDashboard({ initialData }: ClientDashboardProps) {
                               <div className="p-6 bg-white/5 rounded-2xl border border-white/5 space-y-4">
                                  <div className="text-[10px] font-black text-primary uppercase tracking-widest opacity-60">{t('finance')}</div>
                                  <div><span className="text-muted-foreground text-xs font-bold w-16 inline-block">{t('status')}</span> <span className={`font-black uppercase text-sm ${selectedBooking.status === 'approved' ? 'text-green-500' : selectedBooking.status === 'refused' ? 'text-red-500' : 'text-primary'}`}>{t(selectedBooking.status)}</span></div>
-                                 <div><span className="text-muted-foreground text-xs font-bold w-16 inline-block">{t('payment')}</span> <span className="font-black uppercase text-sm text-yellow-500">{selectedBooking.paymentStatus || 'Pending'}</span></div>
+                                 <div><span className="text-muted-foreground text-xs font-bold w-16 inline-block">{t('payment')}</span> <span className="font-black uppercase text-sm text-yellow-500">{selectedBooking.paymentStatus || t('pending')}</span></div>
                                  <div><span className="text-muted-foreground text-xs font-bold w-16 inline-block">{t('total')}</span> <span className="font-black text-sm">{selectedBooking.totalPrice} €</span></div>
                               </div>
                            </div>
