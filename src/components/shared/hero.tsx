@@ -39,15 +39,15 @@ export function Hero({ dbSubtitle }: { dbSubtitle?: string }) {
       </motion.div>
 
       <div className="container relative z-20 px-6 mx-auto">
-        <div className="flex flex-col items-start gap-4 text-left">
+        <div className="flex flex-col items-start gap-4 text-left -mt-40 md:-mt-64">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="flex items-center gap-6 mb-6"
+              className="flex items-center gap-6 mt-8 mb-2"
             >
               <div className="h-[2px] w-12 md:w-24 bg-gradient-to-r from-primary to-transparent shadow-[0_0_15px_rgba(0,188,212,0.8)]" />
-              <span className="text-2xl md:text-5xl font-black uppercase tracking-widest whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/80 to-accent drop-shadow-[0_0_25px_rgba(0,188,212,0.5)]">
+              <span className="text-xl md:text-3xl font-black uppercase tracking-widest whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/80 to-accent drop-shadow-[0_0_25px_rgba(0,188,212,0.5)]">
                 Dubai Rent Cars
               </span>
             </motion.div>
@@ -56,7 +56,7 @@ export function Hero({ dbSubtitle }: { dbSubtitle?: string }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-              className="text-6xl md:text-[7.5rem] font-black tracking-tight leading-[0.9]"
+              className="text-3xl md:text-[3.5rem] font-black tracking-tight leading-[0.9]"
             >
               {t('heroTitle1')} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/80 to-accent drop-shadow-[0_0_20px_rgba(0,188,212,0.3)]">{t('heroTitle2')}</span>
@@ -66,7 +66,7 @@ export function Hero({ dbSubtitle }: { dbSubtitle?: string }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="max-w-md text-lg md:text-xl text-muted-foreground/90 mt-8 mb-12 leading-relaxed font-medium whitespace-pre-wrap"
+              className="max-w-md text-lg md:text-xl text-muted-foreground/90 mt-4 mb-12 leading-relaxed font-medium whitespace-pre-wrap"
             >
                {dbSubtitle || t('heroSubtitle')}
             </motion.p>
